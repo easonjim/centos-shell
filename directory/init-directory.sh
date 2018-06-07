@@ -11,3 +11,6 @@ cp -rf data /
 
 # 复制文件夹说明
 cp README.md /data
+
+# 清除.gitignore文件
+find /data -exec mv {}/.gitignore /tmp 1>/dev/null 2>&1 \;
