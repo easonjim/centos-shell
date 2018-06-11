@@ -2,10 +2,13 @@
 # 
 # nginx 1.14.0
 
+# 检查是否为root用户，脚本必须在root权限下运行
+source common/check-root.sh
+
 # 定义全局变量
 export PATH=$PATH:/bin:/usr/bin:/usr/local/bin:/usr/sbin
 NGINX_ROOT="/data/webapp"
-NGINX_PORT=8080
+NGINX_PORT=80
 NGINX_USER=nginx
 NGINX_GROUP=nginx
 NGINX_VERSION="nginx-1.14.0"
@@ -17,6 +20,7 @@ NGINX_COMPILE_COMMAND="--prefix=$NGINX_PREFIX --sbin-path=$NGINX_PREFIX/sbin/ngi
 NGINX_VHOST_PATH="/data/service/nginx_vhost"
 NGINX_BASE_PATH="/data/service/nginx_base"
 NGINX_PROFILE_D="/etc/profile.d/nginx.sh"
+NGINX_INIT_D="/etc/init.d/nginx"
 
 # 下载
 wget http://nginx.org/download/$NGINX_VERSION.tar.gz -O $NGINX_VERSION.tar.gz && tar zxvf $NGINX_VERSION.tar.gz
@@ -57,7 +61,7 @@ error_log  log/error.log;
 #error_log  log/error.log  notice;
 #error_log  log/error.log  info;
 
-pid        /run/nginx.pid;
+pid        var/run/nginx.pid;
 
 
 events {
@@ -84,7 +88,7 @@ http {
     #gzip  on;
 
     server {
-        listen       8080;
+        listen       $NGINX_PORT;
         server_name  localhost;
 
         #charset koi8-r;
@@ -177,5 +181,124 @@ EOF
 # 更新环境变量
 . /etc/profile
 
+# 设置开机启动服务
+cat > $NGINX_INIT_D <<EOF
+#!/bin/sh
+
+# chkconfig:   - 85 15
+# description:  Nginx is an HTTP(S) server, HTTP(S) reverse proxy and IMAP/POP3 proxy server
+
+. /etc/rc.d/init.d/functions
+if [ -f /etc/sysconfig/nginx ]; then
+    . /etc/sysconfig/nginx
+fi
+prog=nginx
+nginx=\${NGINX-$NGINX_PREFIX/sbin/nginx}
+conffile=\${CONFFILE-$NGINX_PREFIX/etc/nginx.conf}
+lockfile=\${LOCKFILE-$NGINX_PREFIX/var/lock/nginx.lock}
+pidfile=\${PIDFILE-$NGINX_PREFIX/var/run/nginx.pid}
+SLEEPMSEC=100000
+RETVAL=0
+start() {
+    echo -n \$"Starting \$prog: "
+    daemon --pidfile=\${pidfile} \${nginx} -c \${conffile}
+    RETVAL=\$?
+    echo
+    [ \$RETVAL = 0 ] && touch \${lockfile}
+    return \$RETVAL
+}
+stop() {
+    echo -n \$"Stopping \$prog: "
+    killproc -p \${pidfile} \${prog}
+    RETVAL=\$?
+    echo
+    [ \$RETVAL = 0 ] && rm -f \${lockfile} \${pidfile}
+}
+reload() {
+    echo -n \$"Reloading \$prog: "
+    killproc -p \${pidfile} \${prog} -HUP
+    RETVAL=\$?
+    echo
+}
+upgrade() {
+    oldbinpidfile=\${pidfile}.oldbin
+    configtest -q || return 6
+    echo -n \$"Staring new master \$prog: "
+    killproc -p \${pidfile} \${prog} -USR2
+    RETVAL=\$?
+    echo
+    /bin/usleep \$SLEEPMSEC
+    if [ -f \${oldbinpidfile} -a -f \${pidfile} ]; then
+        echo -n \$"Graceful shutdown of old \$prog: "
+        killproc -p \${oldbinpidfile} \${prog} -QUIT
+        RETVAL=\$?
+        echo
+    else
+        echo \$"Upgrade failed!"
+        return 1
+    fi
+}
+configtest() {
+    if [ "\$#" -ne 0 ] ; then
+        case "\$1" in
+            -q)
+                FLAG=\$1
+                ;;
+            *)
+                ;;
+        esac
+        shift
+    fi
+    \${nginx} -t -c \${conffile} \$FLAG
+    RETVAL=\$?
+    return \$RETVAL
+}
+rh_status() {
+    status -p \${pidfile} \${nginx}
+}
+# See how we were called.
+case "\$1" in
+    start)
+        rh_status >/dev/null 2>&1 && exit 0
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        rh_status
+        RETVAL=\$?
+        ;;
+    restart)
+        configtest -q || exit \$RETVAL
+        stop
+        start
+        ;;
+    upgrade)
+        upgrade
+        ;;
+    condrestart|try-restart)
+        if rh_status >/dev/null 2>&1; then
+            stop
+            start
+        fi
+        ;;
+    force-reload|reload)
+        reload
+        ;;
+    configtest)
+        configtest
+        ;;
+    *)
+        echo \$"Usage: \$prog {start|stop|restart|condrestart|try-restart|force-reload|upgrade|reload|status|help|configtest}"
+        RETVAL=2
+esac
+exit \$RETVAL
+EOF
+chmod 777 $NGINX_INIT_D
+
+# 设置开机启动
+chkconfig nginx on
+
 # 启动
-nginx
+service nginx start 
