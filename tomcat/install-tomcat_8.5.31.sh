@@ -6,7 +6,7 @@
 TOMCAT_URL=http://mirror.bit.edu.cn/apache/tomcat/tomcat-8/v8.5.31/bin/apache-tomcat-8.5.31.tar.gz
 TOMCAT_FILE=apache-tomcat-8.5.31.tar.gz
 TOMCAT_FILE_PATH=apache-tomcat-8.5.31
-TOMCAT_PATH=/data/service/tomcat/
+TOMCAT_PATH=/data/service/tomcat
 TOMCAT_PROFILE_D=/etc/profile.d/tomcat.sh
 TOMCAT_INIT_D=/etc/init.d/tomcat8
 

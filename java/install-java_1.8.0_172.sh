@@ -6,7 +6,7 @@
 JAVA_URL=http://download.oracle.com/otn-pub/java/jdk/8u172-b11/a58eab1ec242421181065cdc37240b08/jdk-8u172-linux-x64.tar.gz
 JAVA_FILE=jdk-8u172-linux-x64.tar.gz
 JAVA_FILE_PATH=jdk1.8.0_172
-JDK_PATH=/data/service/java/
+JDK_PATH=/data/service/java
 JAVA_PROFILE_D=/etc/profile.d/java.sh
 
 # 检查是否为root用户，脚本必须在root权限下运行

@@ -6,7 +6,7 @@
 NODE_URL=https://nodejs.org/dist/v8.11.2/node-v8.11.2-linux-x64.tar.xz
 NODE_FILE=node-v8.11.2-linux-x64.tar.xz
 NODE_FILE_PATH=node-v8.11.2-linux-x64
-NODE_PATH=/data/service/node/
+NODE_PATH=/data/service/node
 NODE_PROFILE_D=/etc/profile.d/node.sh
 
 

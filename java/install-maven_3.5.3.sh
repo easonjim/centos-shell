@@ -6,7 +6,7 @@
 MAVEN_URL=http://mirrors.shu.edu.cn/apache/maven/maven-3/3.5.3/binaries/apache-maven-3.5.3-bin.tar.gz
 MAVEN_FILE=apache-maven-3.5.3-bin.tar.gz
 MAVEN_FILE_PATH=apache-maven-3.5.3
-MAVEN_PATH=/data/service/maven/
+MAVEN_PATH=/data/service/maven
 MAVEN_PROFILE_D=/etc/profile.d/maven.sh
 
 # 检查是否为root用户，脚本必须在root权限下运行
