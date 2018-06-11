@@ -1,0 +1,27 @@
+#!/bin/bash
+#
+# maven 3.5.3
+
+# 定义全局变量
+MAVEN_URL=http://mirrors.shu.edu.cn/apache/maven/maven-3/3.5.3/binaries/apache-maven-3.5.3-bin.tar.gz
+MAVEN_FILE=apache-maven-3.5.3-bin.tar.gz
+MAVEN_FILE_PATH=apache-maven-3.5.3
+MAVEN_PATH=/data/service/maven/
+MAVEN_PROFILE_D=/etc/profile.d/maven.sh
+
+# 检查是否为root用户，脚本必须在root权限下运行
+source common/check-root.sh
+
+# 下载并解压
+wget $MAVEN_URL -O $MAVEN_FILE && tar zxvf $MAVEN_FILE
+
+# 移动
+mv $MAVEN_FILE_PATH/* $MAVEN_PATH
+
+# 设置环境变量
+cat <<EOF > $MAVEN_PROFILE_D
+export PATH=$MAVEN_PATH/bin:\$PATH
+EOF
+
+# 更新环境变量
+. /etc/profile
