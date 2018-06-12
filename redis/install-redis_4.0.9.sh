@@ -2,6 +2,9 @@
 #
 # redis 4.0.9
 
+# 解决相对路径问题
+cd `dirname $0`
+
 # 定义全局变量
 REDIS_URL=http://download.redis.io/releases/redis-4.0.9.tar.gz
 REDIS_FILE=redis-4.0.9.tar.gz
@@ -11,7 +14,7 @@ REDIS_PROFILE_D=/etc/profile.d/redis.sh
 REDIS_INIT_D=/etc/init.d/redis
 
 # 检查是否为root用户，脚本必须在root权限下运行
-source common/check-root.sh
+source ../common/check-root.sh
 
 # 下载并解压
 wget $REDIS_URL -O $REDIS_FILE && tar zxvf $REDIS_FILE

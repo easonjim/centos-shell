@@ -2,6 +2,9 @@
 #
 # rsync 3.1.3
 
+# 解决相对路径问题
+cd `dirname $0`
+
 # 定义全局变量
 RSYNC_URL=https://download.samba.org/pub/rsync/src/rsync-3.1.3.tar.gz
 RSYNC_FILE=rsync-3.1.3.tar.gz
@@ -10,7 +13,7 @@ RSYNC_PATH=/data/service/rsync
 RSYNC_PROFILE_D=/etc/profile.d/rsync.sh
 
 # 检查是否为root用户，脚本必须在root权限下运行
-source common/check-root.sh
+source ../common/check-root.sh
 
 # 下载并解压
 wget $RSYNC_URL -O $RSYNC_FILE && tar zxvf $RSYNC_FILE

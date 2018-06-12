@@ -2,6 +2,9 @@
 #
 # postgis 2.4.4
 
+# 解决相对路径问题
+cd `dirname $0`
+
 # 定义全局变量
 POSTGIS_URL=https://download.osgeo.org/postgis/source/postgis-2.4.4.tar.gz
 POSTGIS_FILE=postgis-2.4.4.tar.gz
@@ -12,7 +15,7 @@ POSTGRESQL_PATH=/data/service/postgresql
 POSTGRESQL_USER=postgres
 
 # 检查是否为root用户，脚本必须在root权限下运行
-source common/check-root.sh
+source ../common/check-root.sh
 
 # 下载并解压
 wget $POSTGIS_URL -O $POSTGIS_FILE && tar zxvf $POSTGIS_FILE

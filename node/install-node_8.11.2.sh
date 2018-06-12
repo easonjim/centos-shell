@@ -2,6 +2,9 @@
 #
 # node.js 8.11.2
 
+# 解决相对路径问题
+cd `dirname $0`
+
 # 定义全局变量
 NODE_URL=https://nodejs.org/dist/v8.11.2/node-v8.11.2-linux-x64.tar.xz
 NODE_FILE=node-v8.11.2-linux-x64.tar.xz
@@ -11,7 +14,7 @@ NODE_PROFILE_D=/etc/profile.d/node.sh
 
 
 # 检查是否为root用户，脚本必须在root权限下运行
-source common/check-root.sh
+source ../common/check-root.sh
 
 # 下载并解压
 wget $NODE_URL -O $NODE_FILE && tar xvJf $NODE_FILE

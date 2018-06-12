@@ -14,3 +14,6 @@ cp README.md /data
 
 # 清除.gitignore文件
 find /data -exec mv {}/.gitignore /tmp 1>/dev/null 2>&1 \;
+
+# 设置文件夹可读写，方便以后新建的用户都可以操作此目录
+chmod -R 777 /data
