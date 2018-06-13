@@ -30,27 +30,30 @@ cp /data/service/redis/redis.conf /data/service/redis_base/redis_group/redis-630
 cp /data/service/redis/redis.conf /data/service/redis_base/redis_group/redis-6303.conf
 # 修改配置文件
 # 修改redis-6301.conf配置文件
-vim redis-6301.conf
+vim /data/service/redis_base/redis_group/redis-6301.conf
 # 将参数的值改为以下
 daemonize yes
 pidfile /var/run/redis6301.pid
 port 6301
 logfile "6301.log"
 dbfilename dump6301.rdb
+bind 内网IP
 # 修改redis-6302.conf
-vim redis-6302.conf
+vim /data/service/redis_base/redis_group/redis-6302.conf
 daemonize yes
 pidfile /var/run/redis6302.pid
 port 6302
 logfile "6302.log"
 dbfilename dump6302.rdb
+bind 内网IP
 # 修改redis-6303.conf
-vim redis-6303.conf
+vim /data/service/redis_base/redis_group/redis-6303.conf
 daemonize yes
 pidfile /var/run/redis6303.pid
 port 6303
 logfile "6303.log"
 dbfilename dump6303.rdb
+bind 内网IP
 ```
 ### 配置主从
 ```shell
@@ -75,6 +78,8 @@ SLAVEOF 127.0.0.1 6301
 cat > /data/service/redis_base/redis_group/sentinel-26301.conf <<EOF
 # 使用宿主进程启动
 daemonize yes
+# 去除保护模式
+protected-mode no
 # 启动目录
 dir "/data/service/redis/bin"
 # 日期文件路径
@@ -94,6 +99,8 @@ EOF
 cat > /data/service/redis_base/redis_group/sentinel-26302.conf <<EOF
 # 使用宿主进程启动
 daemonize yes
+# 去除保护模式
+protected-mode no
 # 启动目录
 dir "/data/service/redis/bin"
 # 日期文件路径
@@ -113,6 +120,8 @@ EOF
 cat > /data/service/redis_base/redis_group/sentinel-26303.conf <<EOF
 # 使用宿主进程启动
 daemonize yes
+# 去除保护模式
+protected-mode no
 # 启动目录
 dir "/data/service/redis/bin"
 # 日期文件路径
@@ -296,6 +305,8 @@ esac
 EOF
 # 设置权限
 chmod +x /etc/init.d/redis-sentinel
+# 添加到开机启动
+chkconfig redis-sentinel on
 ```
 ### 其它服务器设置Redis从节点
 只需要修改端口，以及主节点的IP即可，原理就是往上叠加从节点
@@ -361,71 +372,71 @@ AUTH="111111"
 case "\$1" in
     start)
         # 启动Redis主从模式
-        if [ -f /var/run/redis6301.pid ]
+        if [ -f /var/run/redis6304.pid ]
         then
-                echo "/var/run/redis6301.pid exists, process is already running or crashed"
+                echo "/var/run/redis6304.pid exists, process is already running or crashed"
         else
-                echo "Starting Redis 6301 server..."
-                \$EXEC_PATH/redis-server /data/service/redis_base/redis_group/redis-6301.conf
+                echo "Starting Redis 6304 server..."
+                \$EXEC_PATH/redis-server /data/service/redis_base/redis_group/redis-6304.conf
         fi
-        if [ -f /var/run/redis6302.pid ]
+        if [ -f /var/run/redis6305.pid ]
         then
-                echo "/var/run/redis6302.pid exists, process is already running or crashed"
+                echo "/var/run/redis6305.pid exists, process is already running or crashed"
         else
-                echo "Starting Redis 6302 server..."
-                \$EXEC_PATH/redis-server /data/service/redis_base/redis_group/redis-6302.conf
+                echo "Starting Redis 6305 server..."
+                \$EXEC_PATH/redis-server /data/service/redis_base/redis_group/redis-6305.conf
         fi
-        if [ -f /var/run/redis6303.pid ]
+        if [ -f /var/run/redis6306.pid ]
         then
-                echo "/var/run/redis6303.pid exists, process is already running or crashed"
+                echo "/var/run/redis6306.pid exists, process is already running or crashed"
         else
-                echo "Starting Redis 6303 server..."
-                \$EXEC_PATH/redis-server /data/service/redis_base/redis_group/redis-6303.conf
+                echo "Starting Redis 6306 server..."
+                \$EXEC_PATH/redis-server /data/service/redis_base/redis_group/redis-6306.conf
         fi
         ;;
     stop)
         # 停止Redis主从
-        if [ ! -f /var/run/redis6301.pid ]
+        if [ ! -f /var/run/redis6304.pid ]
         then
-                echo "/var/run/redis6301.pid does not exist, process is not running"
+                echo "/var/run/redis6304.pid does not exist, process is not running"
         else
-                PID=\$(cat /var/run/redis6301.pid)
+                PID=\$(cat /var/run/redis6304.pid)
                 echo "Stopping ..."
-                \$CLIEXEC -p 6301 -a \$AUTH shutdown
+                \$CLIEXEC -p 6304 -a \$AUTH shutdown
                 while [ -x /proc/\${PID} ]
                 do
                     echo "Waiting for Redis to shutdown ..."
                     sleep 1
                 done
-                echo "Redis 6301 stopped"
+                echo "Redis 6304 stopped"
         fi
-        if [ ! -f /var/run/redis6302.pid ]
+        if [ ! -f /var/run/redis6305.pid ]
         then
-                echo "/var/run/redis6302.pid does not exist, process is not running"
+                echo "/var/run/redis6305.pid does not exist, process is not running"
         else
-                PID=\$(cat /var/run/redis6302.pid)
+                PID=\$(cat /var/run/redis6305.pid)
                 echo "Stopping ..."
-                \$CLIEXEC -p 6302 -a \$AUTH shutdown
+                \$CLIEXEC -p 6305 -a \$AUTH shutdown
                 while [ -x /proc/\${PID} ]
                 do
                     echo "Waiting for Redis to shutdown ..."
                     sleep 1
                 done
-                echo "Redis 6302 stopped"
+                echo "Redis 6305 stopped"
         fi
-        if [ ! -f /var/run/redis6303.pid ]
+        if [ ! -f /var/run/redis6306.pid ]
         then
-                echo "/var/run/redis6303.pid does not exist, process is not running"
+                echo "/var/run/redis6306.pid does not exist, process is not running"
         else
-                PID=\$(cat /var/run/redis6303.pid)
+                PID=\$(cat /var/run/redis6306.pid)
                 echo "Stopping ..."
-                \$CLIEXEC -p 6303 -a \$AUTH shutdown
+                \$CLIEXEC -p 6306 -a \$AUTH shutdown
                 while [ -x /proc/\${PID} ]
                 do
                     echo "Waiting for Redis to shutdown ..."
                     sleep 1
                 done
-                echo "Redis 6303 stopped"
+                echo "Redis 6306 stopped"
         fi
         ;;
     restart|force-reload)
@@ -439,4 +450,6 @@ esac
 EOF
 # 设置开机脚本权限
 chmod +x /etc/init.d/redis-sentinel
+# 添加到开机启动
+chkconfig redis-sentinel on
 ```
