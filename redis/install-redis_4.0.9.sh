@@ -19,16 +19,19 @@ source ../common/check-root.sh
 # 下载并解压
 wget $REDIS_URL -O $REDIS_FILE && tar zxvf $REDIS_FILE
 
+# 编译
+cd $REDIS_FILE_PATH
+make
+# 指定目录
+make PREFIX=$REDIS_PATH install
+cd ..
+
 # 移动
 mv $REDIS_FILE_PATH/* $REDIS_PATH
 
-# 编译
-cd $REDIS_PATH
-make
-
 # 设置环境变量
 cat <<EOF > $REDIS_PROFILE_D
-export PATH=$REDIS_PATH/src:\$PATH
+export PATH=$REDIS_PATH/bin:\$PATH
 EOF
 
 # 更新环境变量
@@ -45,8 +48,8 @@ cat > $REDIS_INIT_D <<EOF
 # as it does use of the /proc filesystem.
 
 REDISPORT=6379
-EXEC=$REDIS_PATH/src/redis-server
-CLIEXEC=$REDIS_PATH/src/redis-cli
+EXEC=$REDIS_PATH/bin/redis-server
+CLIEXEC=$REDIS_PATH/bin/redis-cli
 
 PIDFILE=/var/run/redis_\${REDISPORT}.pid
 CONF="$REDIS_PATH/redis.conf"
@@ -91,6 +94,9 @@ EOF
 
 # 设置redis配置文件后台模式启动
 sed -i 's/daemonize no/daemonize yes/g' $REDIS_PATH/redis.conf
+
+# 开启远程访问
+sed -i 's/bind 127.0.0.1/bind 0.0.0.0/g' $REDIS_PATH/redis.conf
 
 # 设置开机启动
 chkconfig redis on
