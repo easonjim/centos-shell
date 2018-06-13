@@ -30,7 +30,6 @@ make && make install
 chown -R $POSTGRESQL_USER. $PGPOOL_PATH
 
 # 设置环境变量
-exit
 cat <<EOF > $PGPOOL_PROFILE_D
 export PATH=$PGPOOL_PATH/bin:\$PATH
 EOF
