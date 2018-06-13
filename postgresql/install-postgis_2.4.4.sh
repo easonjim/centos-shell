@@ -6,6 +6,7 @@
 cd `dirname $0`
 
 # 定义全局变量
+PARENT_PATH=$(pwd)
 POSTGIS_URL=https://download.osgeo.org/postgis/source/postgis-2.4.4.tar.gz
 POSTGIS_FILE=postgis-2.4.4.tar.gz
 POSTGIS_FILE_PATH=postgis-2.4.4
@@ -25,29 +26,29 @@ wget $POSTGIS_URL -O $POSTGIS_FILE && tar zxvf $POSTGIS_FILE
 mkdir -p $POSTGIS_PATH/geos
 wget http://download.osgeo.org/geos/geos-3.5.0.tar.bz2    
 tar -jxvf geos-3.5.0.tar.bz2
-cd geos-3.5.0    
+cd $PARENT_PATH/geos-3.5.0    
 ./configure --prefix=$POSTGIS_PATH/geos
 make -j 32    
 make install
-cd ..
+cd $PARENT_PATH/..
 # proj4
 mkdir -p $POSTGIS_PATH/proj4
 wget http://download.osgeo.org/proj/proj-4.9.2.tar.gz    
 tar -zxvf proj-4.9.2.tar.gz    
-cd proj-4.9.2    
+cd $PARENT_PATH/proj-4.9.2    
 ./configure --prefix=$POSTGIS_PATH/proj4
 make -j 32    
 make install 
-cd ..
+cd $PARENT_PATH/..
 # gdal 
 mkdir -p $POSTGIS_PATH/gdal
 wget http://download.osgeo.org/gdal/2.1.1/gdal-2.1.1.tar.gz    
 tar -zxvf gdal-2.1.1.tar.gz    
-cd gdal-2.1.1
+cd $PARENT_PATH/gdal-2.1.1
 ./configure --prefix=$POSTGIS_PATH/gdal --with-pg=$POSTGRESQL_PATH/bin/pg_config    
 make -j 32    
 make install  
-cd ..
+cd $PARENT_PATH/..
 # libxm2...
 yum install -y libtool libxml2 libxml2-devel libxslt libxslt-devel json-c json-c-devel cmake gmp gmp-devel mpfr mpfr-devel boost-devel pcre-devel
 
@@ -60,19 +61,20 @@ echo "$POSTGIS_PATH/geos/lib/" > /etc/ld.so.conf.d/geos.conf
 ldconfig
 
 # 编译
-cd $POSTGIS_FILE_PATH
+cd $PARENT_PATH/$POSTGIS_FILE_PATH
 # 注意：此变量为PGSQL的目录，不是POSTGIS的目录
 ./configure --prefix=$POSTGRESQL_PATH --with-gdalconfig=$POSTGIS_PATH/gdal/bin/gdal-config --with-pgconfig=$POSTGRESQL_PATH/bin/pg_config --with-geosconfig=$POSTGIS_PATH/geos/bin/geos-config --with-projdir=$POSTGIS_PATH/proj4
 make
 make install
 
 # 开启插件
-sudo -u $POSTGRESQL_USER psql -c 'create extension postgis;'
-sudo -u $POSTGRESQL_USER psql -c 'create extension postgis_topology;'
-sudo -u $POSTGRESQL_USER psql -c 'create extension fuzzystrmatch;'
-sudo -u $POSTGRESQL_USER psql -c 'create extension address_standardizer;'
-sudo -u $POSTGRESQL_USER psql -c 'create extension address_standardizer_data_us;'
-sudo -u $POSTGRESQL_USER psql -c 'create extension postgis_tiger_geocoder;'
+su - $POSTGRESQL_USER -s /bin/sh -c "psql -c 'create extension postgis;'"
+su - $POSTGRESQL_USER -s /bin/sh -c "psql -c 'create extension postgis;'"
+su - $POSTGRESQL_USER -s /bin/sh -c "psql -c 'create extension postgis_topology;'"
+su - $POSTGRESQL_USER -s /bin/sh -c "psql -c 'create extension fuzzystrmatch;'"
+su - $POSTGRESQL_USER -s /bin/sh -c "psql -c 'create extension address_standardizer;'"
+su - $POSTGRESQL_USER -s /bin/sh -c "psql -c 'create extension address_standardizer_data_us;'"
+su - $POSTGRESQL_USER -s /bin/sh -c "psql -c 'create extension postgis_tiger_geocoder;'"
 
 # 测试数据库是否正常
 cat <<EOF
