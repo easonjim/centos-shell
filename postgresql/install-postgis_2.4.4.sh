@@ -24,31 +24,31 @@ wget $POSTGIS_URL -O $POSTGIS_FILE && tar zxvf $POSTGIS_FILE
 # 安装编译依赖
 # geos
 mkdir -p $POSTGIS_PATH/geos
-wget http://download.osgeo.org/geos/geos-3.5.0.tar.bz2    
+wget http://download.osgeo.org/geos/geos-3.5.0.tar.bz2 -O geos-3.5.0.tar.bz2
 tar -jxvf geos-3.5.0.tar.bz2
 cd $PARENT_PATH/geos-3.5.0    
 ./configure --prefix=$POSTGIS_PATH/geos
 make -j 32    
 make install
-cd $PARENT_PATH/..
+cd $PARENT_PATH/geos-3.5.0/..
 # proj4
 mkdir -p $POSTGIS_PATH/proj4
-wget http://download.osgeo.org/proj/proj-4.9.2.tar.gz    
+wget http://download.osgeo.org/proj/proj-4.9.2.tar.gz -O proj-4.9.2.tar.gz
 tar -zxvf proj-4.9.2.tar.gz    
 cd $PARENT_PATH/proj-4.9.2    
 ./configure --prefix=$POSTGIS_PATH/proj4
 make -j 32    
 make install 
-cd $PARENT_PATH/..
+cd $PARENT_PATH/proj-4.9.2/..
 # gdal 
 mkdir -p $POSTGIS_PATH/gdal
-wget http://download.osgeo.org/gdal/2.1.1/gdal-2.1.1.tar.gz    
+wget http://download.osgeo.org/gdal/2.1.1/gdal-2.1.1.tar.gz -O gdal-2.1.1.tar.gz
 tar -zxvf gdal-2.1.1.tar.gz    
 cd $PARENT_PATH/gdal-2.1.1
 ./configure --prefix=$POSTGIS_PATH/gdal --with-pg=$POSTGRESQL_PATH/bin/pg_config    
 make -j 32    
 make install  
-cd $PARENT_PATH/..
+cd $PARENT_PATH/gdal-2.1.1/..
 # libxm2...
 yum install -y libtool libxml2 libxml2-devel libxslt libxslt-devel json-c json-c-devel cmake gmp gmp-devel mpfr mpfr-devel boost-devel pcre-devel
 
