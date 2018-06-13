@@ -33,7 +33,8 @@ export PATH=$POSTGRESQL_PATH/bin:\$PATH
 EOF
 
 # 更新环境变量
-. /etc/profile
+# . /etc/profile #此方法只能在当前Shell文件以及子Shell中生效
+export PATH=$POSTGRESQL_PATH/bin:$PATH
 
 # 初始化数据库
 mkdir -p $POSTGRESQL_DATABASE_DIR
