@@ -92,6 +92,9 @@ case "\$1" in
 esac
 EOF
 
+# 设置权限
+chmod +x $REDIS_INIT_D
+
 # 设置redis配置文件后台模式启动
 sed -i 's/daemonize no/daemonize yes/g' $REDIS_PATH/redis.conf
 
