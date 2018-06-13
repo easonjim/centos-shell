@@ -22,10 +22,12 @@ wget $PGPOOL_URL -O $PGPOOL_FILE && tar zxvf $PGPOOL_FILE
 
 # 编译
 mkdir -p $PGPOOL_PATH
-chown -R $POSTGRESQL_USER. $PGPOOL_PATH
-su $POSTGRESQL_USER
 cd $PGPOOL_FILE_PATH
 ./configure --prefix=$PGPOOL_PATH --with-pgsql=$POSTGRESQL_PATH
+make && make install
+
+# 设置用户变量
+chown -R $POSTGRESQL_USER. $PGPOOL_PATH
 
 # 设置环境变量
 exit
