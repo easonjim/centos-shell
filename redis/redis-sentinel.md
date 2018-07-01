@@ -1,5 +1,6 @@
 # Redis Sentinel 哨兵模式集群搭建
-哨兵不能直接使用客户端操作，只能查看同步信息，基于Java的应用客户端选择兼容哨兵模式的，并执行组名（下面配置的为mymaster）
+哨兵不能直接使用客户端操作，只能查看同步信息，基于Java的应用客户端选择兼容哨兵模式的，并执行组名（下面配置的为mymaster）  
+注意：哨兵和Redis同在一台服务器时，可以使用127.0.0.1这样的IP，当服务器>=2时，就只能使用内网或者外网IP，不然会造成Redis无法连接主库，以及导致哨兵找不到主库。
 ## 启动顺序
 Redis(Master->Salve)->Sentinel
 ## 哨兵数量
@@ -66,9 +67,9 @@ redis-cli -p 6301
 redis-cli -p 6302
 redis-cli -p 6303
 # 在6302执行从库操作
-SLAVEOF 127.0.0.1 6301
+SLAVEOF 内网IP 6301
 # 在6303执行从库操作
-SLAVEOF 127.0.0.1 6301
+SLAVEOF 内网IP 6301
 ```
 ### 配置哨兵模式
 ```shell
@@ -89,7 +90,7 @@ pidfile "/var/run/sentinel26301.pid"
 # 监听Redis主机地址及端口
 port 26301
 # Redis主节点，以及最后面代表的协商数量，当只有2个人同时选择才通过
-sentinel monitor mymaster 127.0.0.1 6301 2
+sentinel monitor mymaster 内网IP 6301 2
 # 优化同步参数
 sentinel down-after-milliseconds mymaster 5000
 sentinel failover-timeout mymaster 60000
@@ -110,7 +111,7 @@ pidfile "/var/run/sentinel26302.pid"
 # 监听Redis主机地址及端口
 port 26302
 # Redis主节点，以及最后面代表的协商数量，当只有2个人同时选择才通过
-sentinel monitor mymaster 127.0.0.1 6301 2
+sentinel monitor mymaster 内网IP 6301 2
 # 优化同步参数
 sentinel down-after-milliseconds mymaster 5000
 sentinel failover-timeout mymaster 60000
@@ -131,7 +132,7 @@ pidfile "/var/run/sentinel26303.pid"
 # 监听Redis主机地址及端口
 port 26303
 # Redis主节点，以及最后面代表的协商数量，当只有2个人同时选择才通过
-sentinel monitor mymaster 127.0.0.1 6301 2
+sentinel monitor mymaster 内网IP 6301 2
 # 优化同步参数
 sentinel down-after-milliseconds mymaster 5000
 sentinel failover-timeout mymaster 60000
@@ -326,6 +327,7 @@ pidfile /var/run/redis6304.pid
 port 6304
 logfile "6304.log"
 dbfilename dump6304.rdb
+bind 内网IP
 # 修改redis-6305.conf
 vim redis-6305.conf
 daemonize yes
@@ -333,6 +335,7 @@ pidfile /var/run/redis6305.pid
 port 6305
 logfile "6305.log"
 dbfilename dump6305.rdb
+bind 内网IP
 # 修改redis-6306.conf
 vim redis-6306.conf
 daemonize yes
@@ -340,6 +343,7 @@ pidfile /var/run/redis6306.pid
 port 6306
 logfile "6306.log"
 dbfilename dump6306.rdb
+内网IP
 # 启动Redis
 redis-server /data/service/redis_base/redis_group/redis-6304.conf
 redis-server /data/service/redis_base/redis_group/redis-6305.conf
@@ -349,11 +353,11 @@ redis-cli -p 6304
 redis-cli -p 6305
 redis-cli -p 6306
 # 在6304执行从库操作
-SLAVEOF 主节点IP 6301
+SLAVEOF 主节点内网IP 6301
 # 在6305执行从库操作
-SLAVEOF 主节点IP 6301
+SLAVEOF 主节点内网IP 6301
 # 在6306执行从库操作
-SLAVEOF 主节点IP 6301
+SLAVEOF 主节点内网IP 6301
 # 配置开机启动服务
 cat > /etc/init.d/redis-sentinel <<EOF 
 # chkconfig: 2345 10 90  

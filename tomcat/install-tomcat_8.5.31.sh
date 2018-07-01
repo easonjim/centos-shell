@@ -13,6 +13,7 @@ TOMCAT_PATH=/data/service/tomcat
 TOMCAT_PROFILE_D=/etc/profile.d/tomcat.sh
 TOMCAT_INIT_D=/etc/init.d/tomcat8
 
+
 # 检查是否为root用户，脚本必须在root权限下运行
 source ../common/check-root.sh
 
@@ -139,6 +140,8 @@ cat > $TOMCAT_INIT_D << "EOF"
 #                   case the default is "true"
 # -----------------------------------------------------------------------------
 
+JAVA_HOME=/data/service/java
+JRE_HOME=/data/service/java/jre
 CATALINA_HOME=/data/service/tomcat
 CLASSPATH=.:$JAVA_HOME/lib:$CATALINA_HOME/lib
 
@@ -683,6 +686,10 @@ else
 fi
 EOF
 
+# 设置权限
+chmod +x $TOMCAT_INIT_D
+
+# 增加到开机启动
 chkconfig tomcat8 on
 
 # 启动

@@ -36,6 +36,13 @@ rsync
 强制：必须有以下主要目录。
 ```shell
 /data/weblog/nginx --nginx访问日志、错误日志等，可以细分目录也可以不用
+/data/weblog/nginx/default --nginx默认访问日志，使用软链接到nginx默认目录： ln -s /data/weblog/nginx/default /data/service/nginx/log，注意：前提先删除log目录
 /data/weblog/tomcat --tomcat访问日志、错误日志等，需要细分目录
 /data/weblog/business --应用逻辑日志，需要细分目录
 ```
+## 用户权限
+- data目录隶属于www-data组
+- 要操作data目录的用于都加入到www-data组
+- 应用安装时采用root用户，安装好后注意把目录权限切换到www-data
+- 注意：类似PostgreSQL或者MySQL这些，有专门的用户组，这些不用变更
+- 用户可以拥有sudo权限

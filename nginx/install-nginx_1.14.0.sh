@@ -24,6 +24,7 @@ NGINX_VHOST_PATH="/data/service/nginx_vhost"
 NGINX_BASE_PATH="/data/service/nginx_base"
 NGINX_PROFILE_D="/etc/profile.d/nginx.sh"
 NGINX_INIT_D="/etc/init.d/nginx"
+NGINX_LOG_PATH="/data/weblog/nginx/default"
 
 # 下载
 wget http://nginx.org/download/$NGINX_VERSION.tar.gz -O $NGINX_VERSION.tar.gz && tar zxvf $NGINX_VERSION.tar.gz
@@ -60,9 +61,9 @@ cat <<EOF > $NGINX_PREFIX/etc/nginx.conf
 user  nginx;
 worker_processes  auto;
 
-error_log  log/error.log;
-#error_log  log/error.log  notice;
-#error_log  log/error.log  info;
+error_log  $NGINX_LOG_PATH/error.log;
+#error_log  $NGINX_LOG_PATH/error.log  notice;
+#error_log  $NGINX_LOG_PATH/error.log  info;
 
 pid        var/run/nginx.pid;
 
@@ -80,7 +81,7 @@ http {
                       '\$status \$body_bytes_sent "\$http_referer" '
                       '"\$http_user_agent" "\$http_x_forwarded_for"';
 
-    access_log  log/access.log  main;
+    access_log  $NGINX_LOG_PATH/access.log  main;
 
     sendfile        on;
     #tcp_nopush     on;
@@ -96,7 +97,7 @@ http {
 
         #charset koi8-r;
 
-        #access_log  log/host.access.log  main;
+        #access_log  $NGINX_LOG_PATH/host.access.log  main;
 
         location / {
             root   html;

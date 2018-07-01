@@ -40,8 +40,8 @@ export PATH=$POSTGRESQL_PATH/bin:$PATH
 mkdir -p $POSTGRESQL_DATABASE_DIR
 mkdir -p $POSTGRESQL_DATABASE_LOG
 useradd $POSTGRESQL_USER
-chown -R postgres. $POSTGRESQL_DATABASE_DIR
-chown -R postgres. $POSTGRESQL_DATABASE_LOG
+chown -R $POSTGRESQL_USER. $POSTGRESQL_DATABASE_DIR
+chown -R $POSTGRESQL_USER. $POSTGRESQL_DATABASE_LOG
 # 不设置密码
 # passwd $POSTGRESQL_USER
 su - $POSTGRESQL_USER -s /bin/sh -c "initdb -D "$POSTGRESQL_DATABASE_DIR" -U postgres -W"
@@ -121,54 +121,54 @@ set -e
 # Only start if we can find the postmaster.
 test -x \$DAEMON ||
 {
-	echo "\$DAEMON not found"
-	if [ "\$1" = "stop" ]
-	then exit 0
-	else exit 5
-	fi
+    echo "\$DAEMON not found"
+    if [ "\$1" = "stop" ]
+    then exit 0
+    else exit 5
+    fi
 }
 
 # If we want to tell child processes to adjust their OOM scores, set up the
 # necessary environment variables.  Can't just export them through the "su".
 if [ -e "\$PG_OOM_ADJUST_FILE" -a -n "\$PG_CHILD_OOM_SCORE_ADJ" ]
 then
-	DAEMON_ENV="PG_OOM_ADJUST_FILE=\$PG_OOM_ADJUST_FILE PG_OOM_ADJUST_VALUE=\$PG_CHILD_OOM_SCORE_ADJ"
+    DAEMON_ENV="PG_OOM_ADJUST_FILE=\$PG_OOM_ADJUST_FILE PG_OOM_ADJUST_VALUE=\$PG_CHILD_OOM_SCORE_ADJ"
 fi
 
 
 # Parse command line parameters.
 case \$1 in
   start)
-	echo -n "Starting PostgreSQL: "
-	test -e "\$PG_OOM_ADJUST_FILE" && echo "\$PG_MASTER_OOM_SCORE_ADJ" > "\$PG_OOM_ADJUST_FILE"
-	su - \$PGUSER -c "\$DAEMON_ENV \$DAEMON -D '\$PGDATA' >>\$PGLOG 2>&1 &"
-	echo "ok"
-	;;
+    echo -n "Starting PostgreSQL: "
+    test -e "\$PG_OOM_ADJUST_FILE" && echo "\$PG_MASTER_OOM_SCORE_ADJ" > "\$PG_OOM_ADJUST_FILE"
+    su - \$PGUSER -c "\$DAEMON_ENV \$DAEMON -D '\$PGDATA' >>\$PGLOG 2>&1 &"
+    echo "ok"
+    ;;
   stop)
-	echo -n "Stopping PostgreSQL: "
-	su - \$PGUSER -c "\$PGCTL stop -D '\$PGDATA' -s"
-	echo "ok"
-	;;
+    echo -n "Stopping PostgreSQL: "
+    su - \$PGUSER -c "\$PGCTL stop -D '\$PGDATA' -s"
+    echo "ok"
+    ;;
   restart)
-	echo -n "Restarting PostgreSQL: "
-	su - \$PGUSER -c "\$PGCTL stop -D '\$PGDATA' -s"
-	test -e "\$PG_OOM_ADJUST_FILE" && echo "\$PG_MASTER_OOM_SCORE_ADJ" > "\$PG_OOM_ADJUST_FILE"
-	su - \$PGUSER -c "\$DAEMON_ENV \$DAEMON -D '\$PGDATA' >>\$PGLOG 2>&1 &"
-	echo "ok"
-	;;
+    echo -n "Restarting PostgreSQL: "
+    su - \$PGUSER -c "\$PGCTL stop -D '\$PGDATA' -s"
+    test -e "\$PG_OOM_ADJUST_FILE" && echo "\$PG_MASTER_OOM_SCORE_ADJ" > "\$PG_OOM_ADJUST_FILE"
+    su - \$PGUSER -c "\$DAEMON_ENV \$DAEMON -D '\$PGDATA' >>\$PGLOG 2>&1 &"
+    echo "ok"
+    ;;
   reload)
-	echo -n "Reload PostgreSQL: "
-	su - \$PGUSER -c "\$PGCTL reload -D '\$PGDATA' -s"
-	echo "ok"
-	;;
+    echo -n "Reload PostgreSQL: "
+    su - \$PGUSER -c "\$PGCTL reload -D '\$PGDATA' -s"
+    echo "ok"
+    ;;
   status)
-	su - \$PGUSER -c "\$PGCTL status -D '\$PGDATA'"
-	;;
+    su - \$PGUSER -c "\$PGCTL status -D '\$PGDATA'"
+    ;;
   *)
-	# Print help
-	echo "Usage: \$0 {start|stop|restart|reload|status}" 1>&2
-	exit 1
-	;;
+    # Print help
+    echo "Usage: \$0 {start|stop|restart|reload|status}" 1>&2
+    exit 1
+    ;;
 esac
 
 exit 0
