@@ -60,6 +60,7 @@ systemctl enable openvpn
 
 # 安装运行依赖
 # easy-rsa 3
-wget https://github.com/OpenVPN/easy-rsa/archive/v3.0.4.tar.gz -O easy-rsa-3.0.4.tar.gz
+wget https://github.com/OpenVPN/easy-rsa/archive/v3.0.4.tar.gz -O easy-rsa-3.0.4.tar.gz --no-check-certificate
 tar -zxvf easy-rsa-3.0.4.tar.gz
 cd easy-rsa-3.0.4
+mkdir -p /data/service/openvpn/
