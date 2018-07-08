@@ -4,7 +4,7 @@
 
 # 安装编译依赖
 yum install -y autoconf automake libtool gcc gcc-c++ make 
-# 安装openvpn专属依赖
+# 安装openvpn编译专属依赖
 yum install -y openssl openssl-devel pam-devel
 # lzo用于压缩通讯数据加快传输速度
 wget http://www.oberhumer.com/opensource/lzo/download/lzo-2.10.tar.gz
@@ -63,4 +63,8 @@ systemctl enable openvpn
 wget https://github.com/OpenVPN/easy-rsa/archive/v3.0.4.tar.gz -O easy-rsa-3.0.4.tar.gz --no-check-certificate
 tar -zxvf easy-rsa-3.0.4.tar.gz
 cd easy-rsa-3.0.4
-mkdir -p /data/service/openvpn/
+# easy-rsa不用编译，直接拷贝使用即可
+mkdir -p /data/service/openvpn/easy-rsa
+cp -rf easyrsa3/* /data/service/openvpn/easy-rsa
+
+
