@@ -59,3 +59,7 @@ systemctl enable openvpn
 . /etc/profile
 
 # 安装运行依赖
+# easy-rsa 3
+wget https://github.com/OpenVPN/easy-rsa/archive/v3.0.4.tar.gz -O easy-rsa-3.0.4.tar.gz
+tar -zxvf easy-rsa-3.0.4.tar.gz
+cd easy-rsa-3.0.4
