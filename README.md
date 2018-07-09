@@ -1,5 +1,6 @@
 # centos-shell
-CentOS常用Shell
+CentOS常用Shell  
+注意：如无特殊标识，默认运行环境为CentOS 7+
 ## 使用前需要设置脚本可执行权限
 ```shell
 chmod +x xxx.sh

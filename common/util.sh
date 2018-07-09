@@ -25,3 +25,19 @@ util::log_info() {
 util::log_err() {
     echo "[$(date +'%Y-%m-%d %H:%M:%S:%s')]-[ERROR]: $@" >&2
 }
+
+#######################################
+# 检查是否为root用户，脚本必须在root权限下运行
+# Globals:
+#   None
+# Arguments:
+#   Node
+# Returns:
+#   None
+#######################################
+util::check_root() {
+    if [[ "$(whoami)" != "root" ]]; then
+        echo "please run this script as root !" >&2
+        exit 1
+    fi
+}
