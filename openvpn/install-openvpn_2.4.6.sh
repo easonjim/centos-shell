@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# openvpn 2.4.6
+# openvpn 2.4.6 and easy-rsa3
 
 # 安装编译依赖
 yum install -y autoconf automake libtool gcc gcc-c++ make 
