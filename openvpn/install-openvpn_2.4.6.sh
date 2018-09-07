@@ -2,6 +2,49 @@
 #
 # openvpn 2.4.6 and easy-rsa3
 
+# 关闭selinux
+sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+# 生效命令
+setenforce 0
+
+# 安装epel源
+wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
+
+# 开启路由转发功能
+sed -i '/net.ipv4.ip_forward/s/0/1/' /etc/sysctl.conf
+sysctl -p
+
+# 关闭防火墙
+# 根据系统版本判断
+if [[ `rpm -q centos-release|cut -d- -f3` = 6 ]]
+    then
+        # 清空所有默认规则
+        iptables -F
+        # 清空所有自定义规则
+        iptables -X
+        # 所有计数器归0
+        iptables -Z
+        # 停止服务
+        service iptables stop
+    else
+        # 卸载网络组件
+        systemctl stop NetworkManager
+        systemctl disable NetworkManager
+        # 关闭默认防火墙
+        systemctl stop firewalld.service 
+        systemctl disable firewalld.service 
+        # 安装iptables
+        yum install -y iptables
+        # 升级iptables
+        yum update iptables 
+        # 安装iptables-services
+        yum install -y iptables-services
+        # 设置开机启动
+        systemctl enable iptables
+        # 启动
+        systemctl start iptables    
+    fi
+
 # 安装编译依赖
 yum install -y autoconf automake libtool gcc gcc-c++ make 
 # 安装openvpn编译专属依赖
@@ -66,5 +109,4 @@ cd easy-rsa-3.0.4
 # easy-rsa不用编译，直接拷贝使用即可
 mkdir -p /data/service/openvpn/easy-rsa
 cp -rf easyrsa3/* /data/service/openvpn/easy-rsa
-
 

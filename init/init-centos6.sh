@@ -153,3 +153,10 @@ EOF
 . /etc/profile
 ## 配置定时删除
 echo '0 0 0 0 1/1 rm -rf /data/.trash/tmp/* &>/dev/null' >> /etc/crontab
+
+# 替换关机/重启命令(shutdown/poweroff/reboot)
+cat <<EOF > /etc/profile.d/init.sh
+alias reboot='echo "Prohibition of use!"'
+alias shutdown='echo "Prohibition of use!"'
+alias poweroff='echo "Prohibition of use!"'
+EOF
