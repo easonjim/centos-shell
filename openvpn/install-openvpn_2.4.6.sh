@@ -8,6 +8,7 @@ sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
 setenforce 0
 
 # 安装epel源
+yum install -y wget
 wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
 
 # 开启路由转发功能
@@ -42,11 +43,19 @@ if [[ `rpm -q centos-release|cut -d- -f3` = 6 ]]
         # 设置开机启动
         systemctl enable iptables
         # 启动
-        systemctl start iptables    
+        systemctl start iptables
+        # 清空所有默认规则
+        iptables -F
+        # 清空所有自定义规则
+        iptables -X
+        # 所有计数器归0
+        iptables -Z
+        # 停止服务
+        service iptables stop
     fi
 
 # 安装编译依赖
-yum install -y autoconf automake libtool gcc gcc-c++ make 
+yum install -y autoconf automake libtool gcc gcc-c++ make net-tools
 # 安装openvpn编译专属依赖
 yum install -y openssl openssl-devel pam-devel
 # lzo用于压缩通讯数据加快传输速度
@@ -79,7 +88,8 @@ export PATH=/data/service/openvpn/sbin:\$PATH
 EOF
 
 # 配置开机启动服务
-cat <<EOF > /usr/lib/systemd/system/openvpn.service
+mkdir -p /var/run/openvpn
+cat <<EOF > /usr/lib/systemd/system/openvpn@.service
 [Unit]
 Description=OpenVPN Robust And Highly Flexible Tunneling Application On %I
 After=network.target
@@ -94,9 +104,9 @@ ExecStart=/data/service/openvpn/sbin/openvpn --daemon --writepid /var/run/openvp
 WantedBy=multi-user.target
 EOF
 # 设置执行权限
-chmod +x /usr/lib/systemd/system/openvpn.service
-# 设置开机启动
-systemctl enable openvpn
+chmod +x /usr/lib/systemd/system/openvpn@.service
+# 设置开机启动（根据实际情况替换server参数）
+# systemctl enable openvpn@server.service
 
 # 更新环境变量
 . /etc/profile
@@ -110,3 +120,4 @@ cd easy-rsa-3.0.4
 mkdir -p /data/service/openvpn/easy-rsa
 cp -rf easyrsa3/* /data/service/openvpn/easy-rsa
 
+# 配置证书
