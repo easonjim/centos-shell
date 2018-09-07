@@ -119,5 +119,6 @@ cd easy-rsa-3.0.4
 # easy-rsa不用编译，直接拷贝使用即可
 mkdir -p /data/service/openvpn/easy-rsa
 cp -rf easyrsa3/* /data/service/openvpn/easy-rsa
+cp -rf easyrsa3/* /data/service/openvpn/easy-rsa
 
 # 配置证书
