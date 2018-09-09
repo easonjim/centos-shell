@@ -42,3 +42,7 @@ if [ $? -eq 0 ];then
 else
    echo "${name}'s password is set failly!!!"
 fi
+
+# 清除历史记录
+history -c
+history -w

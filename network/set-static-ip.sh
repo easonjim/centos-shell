@@ -13,6 +13,7 @@ INTERFACE=$1
 IPADDR=$2
 NETMASK=$3
 GATEWAY=$4
+UUID=`uuidgen`
 readonly IP_PATH=/etc/sysconfig/network-scripts/ifcfg-${INTERFACE}
 
 # 校验变量
@@ -38,12 +39,15 @@ cp ${IP_PATH} /tmp/${IP_PATH}
 
 # 修改
 cat > ${IP_PATH} << EOF 
+TYPE=Ethernet
+NAME=${INTERFACE} 
 DEVICE=${INTERFACE} 
 BOOTPROTO=static 
 ONBOOT=yes 
 IPADDR=${IPADDR}
 NETMASK=${NETMASK}
 GATEWAY=${GATEWAY}
+UUID=${UUID}
 EOF 
 
 # 重启服务
