@@ -41,3 +41,18 @@ util::check_root() {
         exit 1
     fi
 }
+
+#######################################
+# 检查系统版本
+# User:
+#   $(util::check_os_version)
+# Globals:
+#   None
+# Arguments:
+#   Node
+# Returns:
+#   6/7
+#######################################
+util::check_os_version(){
+    echo `rpm -q centos-release|cut -d- -f3`
+}
