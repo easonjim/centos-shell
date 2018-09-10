@@ -30,11 +30,4 @@ bash ../ssh/set-root-nologin.sh
 # 初始化hostname
 bash ../hostname/init-hostname.sh "centos7"
 
-# 初始化java/nginx/node运行环境
-bash ../java/install-java_1.8.0_172.sh
-bash ../java/install-maven_3.5.3.sh
-bash ../nginx/install-nginx_1.14.0.sh
-bash ../node/install-node_8.11.2.sh
-bash ../tomcat/install-tomcat_8.5.31.sh
-
 echo "www-data用户密码初始化完成："${WWW_DATA_PASSWD}
