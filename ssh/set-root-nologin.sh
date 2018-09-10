@@ -27,5 +27,5 @@ sed -i 's/PermitEmptyPasswords yes/PermitEmptyPasswords no/g' ${SSH_FILE_PATH}
 sed -i 's/UseDNS yes/UseDNS no/g' ${SSH_FILE_PATH}
 
 # 从新加载配置
-/etc/init.d/sshd reload 
+service sshd reload 
 
