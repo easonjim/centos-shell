@@ -6,7 +6,7 @@
 cd `dirname $0`
 
 # 定义全局变量
-TOMCAT_URL=http://mirror.bit.edu.cn/apache/tomcat/tomcat-8/v8.5.31/bin/apache-tomcat-8.5.31.tar.gz
+TOMCAT_URL=https://archive.apache.org/dist/tomcat/tomcat-8/v8.5.31/bin/apache-tomcat-8.5.31.tar.gz
 TOMCAT_FILE=apache-tomcat-8.5.31.tar.gz
 TOMCAT_FILE_PATH=apache-tomcat-8.5.31
 TOMCAT_PATH=/data/service/tomcat

@@ -6,7 +6,7 @@
 cd `dirname $0`
 
 # 定义全局变量
-JAVA_URL=http://download.oracle.com/otn-pub/java/jdk/8u172-b11/a58eab1ec242421181065cdc37240b08/jdk-8u172-linux-x64.tar.gz
+JAVA_URL=https://github.com/frekele/oracle-java/releases/download/8u172-b11/jdk-8u172-linux-x64.tar.gz
 JAVA_FILE=jdk-8u172-linux-x64.tar.gz
 JAVA_FILE_PATH=jdk1.8.0_172
 JDK_PATH=/data/service/java

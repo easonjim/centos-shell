@@ -6,7 +6,7 @@
 cd `dirname $0`
 
 # 定义全局变量
-MAVEN_URL=http://mirrors.shu.edu.cn/apache/maven/maven-3/3.5.3/binaries/apache-maven-3.5.3-bin.tar.gz
+MAVEN_URL=https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.5.3/apache-maven-3.5.3-bin.tar.gz
 MAVEN_FILE=apache-maven-3.5.3-bin.tar.gz
 MAVEN_FILE_PATH=apache-maven-3.5.3
 MAVEN_PATH=/data/service/maven
