@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# 初始化新用户，并加入到sudo权限组下，以这份为入口
+# 初始化新用户，普通用户组
 
 # 解决相对路径问题
 cd `dirname $0`
@@ -9,12 +9,10 @@ cd `dirname $0`
 source ../common/util.sh
 util::check_root
 
-# 初始化sudogroup
-sh init-sudogroup.sh
+# 初始化usergroup
+sh init-usergroup.sh
 # 增加用户
 sh add-user.sh $1 $2
-# 设置sudo权限
-sh set-user-sudo.sh $1
 
 # 清除历史记录
 history -c

@@ -90,7 +90,8 @@ cat << EOF > /etc/security/limits.conf
 *    soft    nproc 65535
 *    hard    nproc 65535
 EOF
-sed -i 's/65535/1024000/g' /etc/security/limits.d/90-nproc.conf
+sed -i 's/1024/1024000/g' /etc/security/limits.d/20-nproc.conf
+sed -i 's/4096/1024000/g' /etc/security/limits.d/20-nproc.conf
 
 # 调整字符集，使其支持中文
 yum -y groupinstall chinese-support &> /dev/null

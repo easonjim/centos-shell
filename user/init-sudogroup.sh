@@ -17,3 +17,6 @@ if [[ `grep -c "^sudogroup" /etc/passwd` = 0 || `grep -c "^sudogroup" /etc/group
 else
     echo "sudogroup用户已存在"
 fi
+
+# 加入到www-data用户组
+usermod -a -G www-data $1
