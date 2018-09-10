@@ -21,7 +21,6 @@ bash ../init/init-centos7.sh
 # 初始化www-data用户密码
 WWW_DATA_PASSWD=`openssl rand -base64 32`
 bash ../directory/init-www-data-passwd.sh ${WWW_DATA_PASSWD}
-echo "www-data用户密码初始化完成："${WWW_DATA_PASSWD}
 
 # 初始化ssh
 bash ../ssh/clean-welcome.sh
@@ -37,3 +36,5 @@ bash ../java/install-maven_3.5.3.sh
 bash ../nginx/install-nginx_1.14.0.sh
 bash ../node/install-node_8.11.2.sh
 bash ../tomcat/install-tomcat_8.5.31.sh
+
+echo "www-data用户密码初始化完成："${WWW_DATA_PASSWD}
