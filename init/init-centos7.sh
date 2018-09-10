@@ -169,7 +169,7 @@ chmod +x /data/.trash/remove.sh
 cat <<EOF > /etc/profile.d/remove.sh
 alias rm="sh /data/.trash/remove.sh"
 EOF
-
+sed -i 's/alias rm/alias rmd/g' ~/.bashrc
 ## 生效
 . /etc/profile
 ## 配置定时删除
