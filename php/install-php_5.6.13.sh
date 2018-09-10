@@ -14,7 +14,7 @@ PHP_ETC_PATH=/data/service/php5.6/etc
 PHP_PROFILE_D=/etc/profile.d/php5.6.sh
 
 # 检查是否为root用户，脚本必须在root权限下运行
-bash ../common/util.sh
+source ../common/util.sh
 util::check_root
 
 # 下载php

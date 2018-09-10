@@ -6,7 +6,7 @@
 cd `dirname $0`
 
 # 检查是否为root用户，脚本必须在root权限下运行
-bash ../common/util.sh
+source ../common/util.sh
 util::check_root
 
 # 设置变量name接收第一个参数（要创建的用户名），$n表示第n个参数，且=两边不能有空格

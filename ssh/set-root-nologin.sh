@@ -3,7 +3,7 @@
 # 设置root用户不能远程登录
 
 # 引入外部文件
-bash ../common/util.sh
+source ../common/util.sh
 
 # 检查root
 util::check_root

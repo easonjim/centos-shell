@@ -3,7 +3,7 @@
 # 设置静态IP
 
 # 引入外部文件
-bash ../common/util.sh
+source ../common/util.sh
 
 # 检查root
 util::check_root

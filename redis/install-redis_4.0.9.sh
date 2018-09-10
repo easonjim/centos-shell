@@ -14,7 +14,7 @@ REDIS_PROFILE_D=/etc/profile.d/redis.sh
 REDIS_INIT_D=/etc/init.d/redis
 
 # 检查是否为root用户，脚本必须在root权限下运行
-bash ../common/util.sh
+source ../common/util.sh
 util::check_root
 
 # 下载并解压
