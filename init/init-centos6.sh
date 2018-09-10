@@ -65,9 +65,11 @@ ntpdate cn.pool.ntp.org &> /dev/null
 ## 设置硬件时间和系统时间一致并校准    
 /sbin/hwclock --systohc
 ## 再次更新时间并且写入BOIS
-ntpdate cn.pool.ntp.org && hwclock -w && hwclock --systohc
-## 写入定时任务定时更新时间
-echo '*/5 * * * * /usr/sbin/ntpdate cn.pool.ntp.org &>/dev/null' >> /etc/crontab
+ntpdate cn.pool.ntp.org && hwclock -w && hwclock --systohc#
+# 写入定时任务定时更新时间
+if [[ `grep -c "cn.pool.ntp.org" /etc/crontab` = 0 ]]; then
+    echo '*/5 * * * * /usr/sbin/ntpdate cn.pool.ntp.org &>/dev/null' >> /etc/crontab
+fi
 
 # 调整文件描述符大小
 cat << EOF > /etc/security/limits.conf
@@ -153,7 +155,9 @@ EOF
 ## 生效
 . /etc/profile
 ## 配置定时删除
-echo '0 0 0 0 1/1 rm -rf /data/.trash/tmp/* &>/dev/null' >> /etc/crontab
+if [[ `grep -c "trash" /etc/crontab` = 0 ]]; then
+    echo '0 0 0 0 1/1 rm -rf /data/.trash/tmp/* &>/dev/null' >> /etc/crontab
+fi
 
 # 替换关机/重启命令(shutdown/poweroff/reboot)
 cat <<EOF > /etc/profile.d/init.sh
