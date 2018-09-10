@@ -10,11 +10,11 @@ source ../common/util.sh
 util::check_root
 
 # 初始化sudogroup
-sh init-sudogroup.sh
+bash init-sudogroup.sh
 # 增加用户
-sh add-user.sh $1 $2
+bash add-user.sh $1 $2
 # 设置sudo权限
-sh set-user-sudo.sh $1
+bash set-user-sudo.sh $1
 
 # 清除历史记录
 history -c

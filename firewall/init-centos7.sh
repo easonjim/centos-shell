@@ -11,8 +11,8 @@ source ../common/util.sh
 util::check_root
 
 # 设置
-sh disable-firewall-centos7.sh
-sh uninstall-NetworkManager-centos7.sh
-sh install-iptables-centos7.sh
+bash disable-firewall-centos7.sh
+bash uninstall-NetworkManager-centos7.sh
+bash install-iptables-centos7.sh
 # 关闭iptables
-sh disable-iptables.sh
+bash disable-iptables.sh

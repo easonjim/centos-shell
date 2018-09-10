@@ -35,15 +35,15 @@ setenforce 0
 # 设置目录并安装nginx
 git clone http://github.com/easonjim/centos-shell.git
 cd centos-shell/directory
-sh init-directory.sh
+bash init-directory.sh
 cd ../../
 cd centos-shell/nginx
-sh install-nginx_1.14.0.sh
+bash install-nginx_1.14.0.sh
 cd ../../
 
 # 安装kvm（这一步不要求按照这个，只需要安装成功即可）
 cd centos-shell/kvm
-sh install-kvm_centos_7.sh
+bash install-kvm_centos_7.sh
 
 # 安装WebVirtMgr依赖
 yum install epel-release

@@ -10,9 +10,9 @@ source ../common/util.sh
 util::check_root
 
 # 初始化usergroup
-sh init-usergroup.sh
+bash init-usergroup.sh
 # 增加用户
-sh add-user.sh $1 $2
+bash add-user.sh $1 $2
 
 # 清除历史记录
 history -c

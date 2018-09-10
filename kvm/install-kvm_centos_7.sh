@@ -18,23 +18,23 @@ GATEWAY=$4
 MAC=$5
 # 校验变量
 if [[ ! -n $1 ]]; then
-  echo "请输入INTERFACE,e.g. ./set-static-ip.sh INTERFACE IPADDR NETMASK GATEWAY MAC"
+  echo "请输入INTERFACE,e.g. ./install-kvm_centos_7.sh INTERFACE IPADDR NETMASK GATEWAY MAC"
   exit 1
 fi
 if [[ ! -n $2 ]]; then
-  echo "请输入IPADDR,e.g. ./set-static-ip.sh INTERFACE IPADDR NETMASK GATEWAY MAC"
+  echo "请输入IPADDR,e.g. ./install-kvm_centos_7.sh INTERFACE IPADDR NETMASK GATEWAY MAC"
   exit 1
 fi
 if [[ ! -n $3 ]]; then
-  echo "请输入NETMASK,e.g. ./set-static-ip.sh INTERFACE IPADDR NETMASK GATEWAY MAC"
+  echo "请输入NETMASK,e.g. ./install-kvm_centos_7.sh INTERFACE IPADDR NETMASK GATEWAY MAC"
   exit 1
 fi
 if [[ ! -n $4 ]]; then
-  echo "请输入GATEWAY,e.g. ./set-static-ip.sh INTERFACE IPADDR NETMASK GATEWAY MAC"
+  echo "请输入GATEWAY,e.g. ./install-kvm_centos_7.sh INTERFACE IPADDR NETMASK GATEWAY MAC"
   exit 1
 fi
 if [[ ! -n $5 ]]; then
-  echo "请输入MAC,e.g. ./set-static-ip.sh INTERFACE IPADDR NETMASK GATEWAY MAC"
+  echo "请输入MAC,e.g. ./install-kvm_centos_7.sh INTERFACE IPADDR NETMASK GATEWAY MAC"
   exit 1
 fi
 

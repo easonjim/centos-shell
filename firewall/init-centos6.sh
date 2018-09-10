@@ -11,4 +11,4 @@ util::check_root
 
 # 设置
 # 关闭iptables
-sh disable-iptables.sh
+bash disable-iptables.sh
