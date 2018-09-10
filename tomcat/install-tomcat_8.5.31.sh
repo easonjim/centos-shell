@@ -15,7 +15,8 @@ TOMCAT_INIT_D=/etc/init.d/tomcat8
 
 
 # 检查是否为root用户，脚本必须在root权限下运行
-source ../common/check-root.sh
+bash ../common/util.sh
+util::check_root
 
 # 下载并解压
 wget $TOMCAT_URL -O $TOMCAT_FILE && tar zxvf $TOMCAT_FILE

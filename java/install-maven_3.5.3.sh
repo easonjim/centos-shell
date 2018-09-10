@@ -13,7 +13,8 @@ MAVEN_PATH=/data/service/maven
 MAVEN_PROFILE_D=/etc/profile.d/maven.sh
 
 # 检查是否为root用户，脚本必须在root权限下运行
-source ../common/check-root.sh
+bash ../common/util.sh
+util::check_root
 
 # 下载并解压
 wget $MAVEN_URL -O $MAVEN_FILE && tar zxvf $MAVEN_FILE

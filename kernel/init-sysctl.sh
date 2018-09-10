@@ -3,7 +3,7 @@
 # 优化内核参数
 
 # 引入外部文件
-source ../common/util.sh
+bash ../common/util.sh
 
 # 检查root
 util::check_root

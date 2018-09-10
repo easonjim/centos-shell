@@ -14,10 +14,8 @@ PHP_ETC_PATH=/data/service/php/etc
 PHP_PROFILE_D=/etc/profile.d/php.sh
 
 # 检查是否为root用户，脚本必须在root权限下运行
-if [[ "$(whoami)" != "root" ]]; then
-    echo "please run this script as root !" >&2
-    exit 1
-fi
+bash ../common/util.sh
+util::check_root
 
 # 下载php
 yum install -y wget

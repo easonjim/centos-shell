@@ -19,7 +19,8 @@ POSTGRESQL_DATABASE_DIR=/data/postgresdatabase
 POSTGRESQL_DATABASE_LOG=/data/postgreslog
 
 # 检查是否为root用户，脚本必须在root权限下运行
-source ../common/check-root.sh
+bash ../common/util.sh
+util::check_root
 
 # 下载并解压
 wget $POSTGRESQL_URL -O $POSTGRESQL_FILE && tar zxvf $POSTGRESQL_FILE

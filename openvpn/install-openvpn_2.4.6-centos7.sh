@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# openvpn 2.4.6 and easy-rsa3 for centos7
+# install openvpn 2.4.6 and easy-rsa3 for centos7
 
 # 关闭selinux
 sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config

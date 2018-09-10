@@ -6,7 +6,8 @@
 cd `dirname $0`
 
 # 检查是否为root用户，脚本必须在root权限下运行
-source ../common/check-root.sh
+bash ../common/util.sh
+util::check_root
 
 # 定义全局变量
 PGPOOL_URL=http://www.pgpool.net/download.php?f=pgpool-II-3.7.3.tar.gz
