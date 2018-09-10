@@ -15,4 +15,4 @@ if [[ ! -n $1 ]]; then
   echo "请输入用户名"
   exit 1
 fi
-usermod -a -G sudogroup $1
+usermod -a -G www-data $1

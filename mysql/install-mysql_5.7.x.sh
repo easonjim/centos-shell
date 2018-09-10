@@ -2,7 +2,7 @@
 #
 # mysql 5.7.x
 
-wget -O https://cdn.mysql.com/Downloads/MySQL-5.7/mysql-5.7.23-el7-x86_64.tar.gz mysql-5.7.23-el7-x86_64.tar.gz
+wget https://cdn.mysql.com/Downloads/MySQL-5.7/mysql-5.7.23-el7-x86_64.tar.gz -O mysql-5.7.23-el7-x86_64.tar.gz
 
 groupadd mysql
 useradd -r -g mysql mysql

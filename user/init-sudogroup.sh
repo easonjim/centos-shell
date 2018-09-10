@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# 初始化sudo用户组
+# 初始化sudo用户组www-data
 
 # 解决相对路径问题
 cd `dirname $0`
@@ -10,13 +10,11 @@ source ../common/util.sh
 util::check_root
 
 # 设置sudogroup用户组
-if [[ `grep -c "^sudogroup" /etc/passwd` = 0 || `grep -c "^sudogroup" /etc/group` = 0 ]]; then
+if [[ `grep -c "^www-data" /etc/passwd` = 0 || `grep -c "^www-data" /etc/group` = 0 ]]; then
     useradd sudogroup
     # 设置sudo权限
-    echo "%sudogroup    ALL=(ALL)       ALL" >> /etc/sudoers
+    echo "%www-data    ALL=(ALL)       ALL" >> /etc/sudoers
 else
-    echo "sudogroup用户已存在"
+    echo "www-data用户已存在"
 fi
 
-# 加入到www-data用户组
-usermod -a -G www-data $1

@@ -41,7 +41,10 @@ mkdir -p /data/weblog/tomcat/www.domain.com
 # 初始化用户
 if [[ `grep -c "^www-data" /etc/passwd` = 0 || `grep -c "^www-data" /etc/group` = 0 ]]; then
     useradd www-data
-    chown www-data:www-data /data/*
+    # 用户组
+    chown -R www-data:www-data /data
+    # 增删改权限
+    chmod -R 770 /data
     # 增加sudo权限
     echo "%www-data    ALL=(ALL)       ALL" >> /etc/sudoers
     # 设置密码

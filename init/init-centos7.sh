@@ -154,6 +154,7 @@ mv /usr/lib/systemd/system/ctrl-alt-del.target{,.bak}
 ## 创建文件夹
 mkdir -p /data/.trash/tmp
 chmod -R 777 /data/.trash/tmp
+chmod -R 777 /data/.trash
 ## 创建删除文件命令
 cat <<"EOF" > /data/.trash/remove.sh
 TRASH_DIR="/data/.trash/tmp"
