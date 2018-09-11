@@ -19,6 +19,7 @@ yum makecache
 
 # 配置epel源
 yum install -y epel-release
+yum install -y wget
 ## 备份(如有配置其他epel源)
 cp /etc/yum.repos.d/epel.rep{,.bak}
 cp /etc/yum.repos.d/epel-testing.repo{,.bak}
