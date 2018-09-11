@@ -40,21 +40,21 @@ if command -v php >/dev/null 2>&1; then
   echo 'exists php' 
 else 
   echo 'no exists php' 
-  base ../php/install-php_7.1.21.sh
+  bash ../php/install-php_7.1.21.sh
 fi
 # nginx
 if command -v nginx >/dev/null 2>&1; then 
   echo 'exists nginx' 
 else 
   echo 'no exists nginx' 
-  base ../nginx/install-nginx_1.14.0.sh
+  bash ../nginx/install-nginx_1.14.0.sh
 fi
 # mysql
 if command -v mysqld >/dev/null 2>&1; then 
   echo 'exists mysql' 
 else 
   echo 'no exists mysql' 
-  base ../nginx/install-mysql_5.7.18.sh
+  bash ../nginx/install-mysql_5.7.18.sh
 fi
 
 # openvpn-admin

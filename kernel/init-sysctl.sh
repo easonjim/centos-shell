@@ -8,6 +8,20 @@ source ../common/util.sh
 # 检查root
 util::check_root
 
+modprobe br_netfilter
+# 为了开机加载上面这个模块
+cat > /etc/rc.sysinit << EOF
+#!/bin/bash
+for file in /etc/sysconfig/modules/*.modules ; do
+[ -x $file ] && $file
+done
+EOF
+cat > /etc/sysconfig/modules/br_netfilter.modules << EOF
+modprobe br_netfilter
+EOF
+chmod 755 /etc/sysconfig/modules/br_netfilter.modules
+lsmod |grep br_netfilter
+
 cat > /etc/sysctl.conf << EOF
 net.ipv4.ip_forward = 0        
 # 开启路由功能
@@ -74,7 +88,7 @@ net.ipv4.tcp_keepalive_intvl = 15
 net.ipv4.tcp_keepalive_probes = 5
 # 在认定连接失效之前，发送多少个TCP的keepalive探测包。缺省值是9。这个值乘以tcp_keepalive_intvl之后决定了，一个连接发送了keepalive之后可以有多少时间没有回应
 # 其他TCP相关调节
-net.core.somaxconn = 262144
+net.core.somaxconn = 65535
 # isten(函数)的默认参数,挂起请求的最大数量限制。web 应用中listen 函数的backlog 默认会给我们内核参数的net.core.somaxconn 限制到128，而nginx 定义的NGX_LISTEN_BACKLOG 默认为511，所以有必要调整这个值
 net.ipv4.tcp_sack = 1
 net.ipv4.tcp_window_scaling = 1

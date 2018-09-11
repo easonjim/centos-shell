@@ -11,17 +11,17 @@ util::check_root
 
 # 安装环境
 # java
-base ../java/install-java_1.8.0_172.sh
-base ../java/install-maven_3.5.3.sh
-base ../tomcat/install-tomcat_8.5.31.sh
+bash ../java/install-java_1.8.0_172.sh
+bash ../java/install-maven_3.5.3.sh
+bash ../tomcat/install-tomcat_8.5.31.sh
 # node
-base ../node/install-node_8.11.2.sh
+bash ../node/install-node_8.11.2.sh
 # ng
-base ../nginx/install-nginx_1.14.0.sh
+bash ../nginx/install-nginx_1.14.0.sh
 # rsync
-base ../rsync/install-rsync_3.1.3.sh
+bash ../rsync/install-rsync_3.1.3.sh
 # docker
-base ../docker/install-docker_last-centos7.sh
+bash ../docker/install-docker_last-centos7.sh
 
 # 设置文件夹权限隶属于www-data
-base ../directory/set-dirgroup-www-data.sh
+bash ../directory/set-dirgroup-www-data.sh

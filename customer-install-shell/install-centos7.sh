@@ -33,7 +33,7 @@ bash ../firewall/init-centos7.sh
 bash ../init/init-centos7.sh
 
 # 优化内核
-base ../kernel/init-sysctl.sh
+bash ../kernel/init-sysctl.sh
 
 # 初始化ssh
 bash ../ssh/clean-welcome.sh
