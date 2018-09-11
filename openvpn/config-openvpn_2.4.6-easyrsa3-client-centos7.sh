@@ -23,7 +23,7 @@ printf "/data/service/openvpn/easy-rsa/pki/ca.crt\n"
 printf "/data/service/openvpn/easy-rsa/pki/issued/client.crt\n"
 printf "/data/service/openvpn/easy-rsa-client/pki/private/client.key\n"
 printf "/data/service/openvpn/easy-rsa/pki/ta.key\n"
-printf "\n################## 如上证书将被Client使用 ##################\n"
+printf "################## 如上证书将被Client使用 ##################\n"
 
 mkdir -p /data/service/openvpn/client
 cp /data/service/openvpn/easy-rsa/pki/ca.crt /data/service/openvpn/client/

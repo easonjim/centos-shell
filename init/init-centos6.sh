@@ -10,7 +10,7 @@ util::check_root
 
 # 配置阿里云源
 ## 备份
-cp /etc/yum.repos.d/CentOS-Base.repo{,.bak}
+cp /etc/yum.repos.d/CentOS-Base.repo{,.bak'_'`date +%Y%m%d_%H%M%S`}
 ## 下载
 wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-6.repo
 ## 生效测试
@@ -21,8 +21,8 @@ yum makecache
 yum install -y epel-release
 yum install -y wget
 ## 备份(如有配置其他epel源)
-cp /etc/yum.repos.d/epel.rep{,.bak}
-cp /etc/yum.repos.d/epel-testing.repo{,.bak}
+cp /etc/yum.repos.d/epel.rep{,.bak'_'`date +%Y%m%d_%H%M%S`}
+cp /etc/yum.repos.d/epel-testing.repo{,.bak'_'`date +%Y%m%d_%H%M%S`}
 ## 下载新repo 到/etc/yum.repos.d/
 wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-6.repo
 
@@ -99,8 +99,8 @@ source /etc/sysconfig/i18n
 
 # 去除系统及内核版本登录前的屏幕显示
 ## 备份
-cp /etc/redhat-release{,.bak}
-cp /etc/issue{,.bak}
+cp /etc/redhat-release{,.bak'_'`date +%Y%m%d_%H%M%S`}
+cp /etc/issue{,.bak'_'`date +%Y%m%d_%H%M%S`}
 ## 修改
 echo "" >/etc/redhat-release
 echo "" >/etc/issue
