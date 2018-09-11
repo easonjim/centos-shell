@@ -118,6 +118,7 @@ echo "" >/etc/issue
 # mv /usr/bin/chattr /usr/bin/rttahc
 
 # 系统审计和故障排查
+mkdir -p /usr/etc/.history
 chmod -R 777 /usr/etc/.history
 cat >> /etc/profile << "EOF"
 # 内容审计

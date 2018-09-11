@@ -108,9 +108,9 @@ sed -i 's/4096/1024000/g' /etc/security/limits.d/20-nproc.conf
 
 # 调整字符集，使其支持中文
 yum -y groupinstall chinese-support &> /dev/null
-sed -i s/"^LANG=.*$"/"LANG=zh_CN.UTF-8"/ /etc/sysconfig/i18n
-echo 'SUPPORTED="zh_CN:zh:en_US.UTF-8:en_US:en:zh_CN.GB18030"' >> /etc/sysconfig/i18n
-source /etc/sysconfig/i18n
+sed -i s/"^LANG=.*$"/"LANG=zh_CN.UTF-8"/ /etc/locale.conf 
+echo 'SUPPORTED="zh_CN:zh:en_US.UTF-8:en_US:en:zh_CN.GB18030"' >> /etc/locale.conf 
+source /etc/locale.conf 
 
 # 去除系统及内核版本登录前的屏幕显示
 ## 备份
@@ -132,6 +132,7 @@ echo "" >/etc/issue
 # mv /usr/bin/chattr /usr/bin/rttahc
 
 # 系统审计和故障排查
+mkdir -p /usr/etc/.history
 chmod -R 777 /usr/etc/.history
 cat >> /etc/profile << "EOF"
 # 内容审计
