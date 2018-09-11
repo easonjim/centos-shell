@@ -9,6 +9,20 @@ cd `dirname $0`
 source ../common/util.sh
 util::check_root
 
+# 可以提前设置变量
+HOSTNAME=$1
+PASSWD=$2
+PORT=$3
+if [[ ! -n $1 ]]; then
+  export HOSTNAME="centos7"
+fi
+if [[ ! -n $2 ]]; then
+  export PASSWD=`openssl rand -base64 32`
+fi
+if [[ ! -n $3 ]]; then
+  export PORT="50022"
+fi
+
 # 初始化文件夹
 bash ../directory/init-directory.sh
 
@@ -18,16 +32,18 @@ bash ../firewall/init-centos7.sh
 # 初始化环境
 bash ../init/init-centos7.sh
 
-# 初始化www-data用户密码
-WWW_DATA_PASSWD=`openssl rand -base64 32`
-bash ../directory/init-www-data-passwd.sh ${WWW_DATA_PASSWD}
+# 优化内核
+base ../kernel/init-sysctl.sh
 
 # 初始化ssh
 bash ../ssh/clean-welcome.sh
-bash ../ssh/edit-port.sh 50022
+bash ../ssh/edit-port.sh ${PORT}
+# 不允许root远程登录
 bash ../ssh/set-root-nologin.sh
 
 # 初始化hostname
-bash ../hostname/init-hostname.sh "centos7"
+bash ../hostname/init-hostname.sh ${HOSTNAME}
 
-echo "www-data用户密码初始化完成："${WWW_DATA_PASSWD}
+# 初始化www-data用户密码
+bash ../directory/init-www-data-passwd.sh ${PASSWD}
+echo "www-data用户密码初始化完成："${PASSWD}

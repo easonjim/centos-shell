@@ -116,3 +116,7 @@ mkdir -p /data/service/openvpn/easy-rsa
 cp -rf easyrsa3/* /data/service/openvpn/easy-rsa
 mkdir -p /data/service/openvpn/easy-rsa-client
 cp -rf easyrsa3/* /data/service/openvpn/easy-rsa-client
+
+# 目录规划
+# 目的是为了和yum安装的保持一致
+ln -s /data/service/openvpn /etc/openvpn
