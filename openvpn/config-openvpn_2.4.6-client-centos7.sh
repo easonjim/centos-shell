@@ -8,13 +8,13 @@ if [[ ! -n $1 ]]; then
   exit 1
 fi
 
-cat <<EOF > /data/service/openvpn/client.conf
+cat <<EOF > /data/service/openvpn/etc/client.conf
 client
 dev tun # 路由模式
 # 改为tcp
 proto tcp
 # OpenVPN服务器的外网IP和端口
-remote ${IPADDR} 443
+remote ${IPADDR} 51443
 resolv-retry infinite
 nobind
 persist-key

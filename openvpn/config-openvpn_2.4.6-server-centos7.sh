@@ -3,8 +3,8 @@
 # config openvpn 2.4.6 and easy-rsa3 for centos7
 # 转发模式
 
-cat <<EOF > /data/service/openvpn/server.conf
-port 443
+cat <<EOF > /data/service/openvpn/etc/server.conf
+port 51443
 # 改成tcp，默认使用udp，如果使用HTTP Proxy，必须使用tcp协议
 proto tcp
 dev tun # 路由模式，桥接模式用dev tap
