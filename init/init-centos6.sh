@@ -8,6 +8,21 @@ source ../common/util.sh
 # 检查root
 util::check_root
 
+# 安装前置依赖
+# 安装常用软件
+yum install -y wget git curl traceroute zlib 
+yum install -y zlib-devel openssl openssl-devel pcre pcre-devel 
+yum install -y gcc gcc-c++ make cmake autoconf 
+yum install -y automake libtool pam-devel libtool libxml2 
+yum install -y libxml2-devel libxslt libxslt-devel json-c json-c-devel 
+yum install -y cmake gmp gmp-devel mpfr mpfr-devel 
+yum install -y boost-devel pcre-devel lrzsz ntp ntpdate 
+yum install -y sysstat vim bison-devel ncurses-devel net-snmp 
+yum install -y sysstat dstat iotop flex byacc 
+yum install -y libpcap libpcap-devel nfs-utils zip unzip 
+yum install -y xz lsof bison openssh-clients htop lftp
+yum -y groupinstall "Development Tools" "Server Platform Development"
+
 # 配置阿里云源
 ## 备份
 cp /etc/yum.repos.d/CentOS-Base.repo{,.bak'_'`date +%Y%m%d_%H%M%S`}
@@ -25,20 +40,6 @@ cp /etc/yum.repos.d/epel.rep{,.bak'_'`date +%Y%m%d_%H%M%S`}
 cp /etc/yum.repos.d/epel-testing.repo{,.bak'_'`date +%Y%m%d_%H%M%S`}
 ## 下载新repo 到/etc/yum.repos.d/
 wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-6.repo
-
-# 安装常用软件
-yum install -y wget git curl traceroute zlib 
-yum install -y zlib-devel openssl openssl-devel pcre pcre-devel 
-yum install -y gcc gcc-c++ make cmake autoconf 
-yum install -y automake libtool pam-devel libtool libxml2 
-yum install -y libxml2-devel libxslt libxslt-devel json-c json-c-devel 
-yum install -y cmake gmp gmp-devel mpfr mpfr-devel 
-yum install -y boost-devel pcre-devel lrzsz ntp ntpdate 
-yum install -y sysstat vim bison-devel ncurses-devel net-snmp 
-yum install -y sysstat dstat iotop flex byacc 
-yum install -y libpcap libpcap-devel nfs-utils zip unzip 
-yum install -y xz lsof bison openssh-clients htop lftp
-yum -y groupinstall "Development Tools" "Server Platform Development"
 
 # 关闭selinux，清空iptables
 ## 关闭selinux
