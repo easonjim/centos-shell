@@ -19,14 +19,14 @@ resolv-retry infinite
 nobind
 persist-key
 persist-tun
-ca client/ca.crt
+ca ../client/ca.crt
 # client1的证书
-cert client/client.crt
+cert ../client/client.crt
 # client1的密钥
-key client/client.key
+key ../client/client.key
 ns-cert-type server
 # 去掉前面的注释
-tls-auth client/ta.key 1
+tls-auth ../client/ta.key 1
 comp-lzo
 verb 5
 EOF

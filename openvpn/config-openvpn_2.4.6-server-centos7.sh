@@ -9,10 +9,10 @@ port 51443
 proto tcp
 dev tun # 路由模式，桥接模式用dev tap
 # 路径前面加keys，全路径为/etc/openvpn/keys/ca.crt
-ca server/ca.crt
-cert server/server.crt
-key server/server.key  # This file should be kept secret
-dh server/dh.pem
+ca ../server/ca.crt
+cert ../server/server.crt
+key ../server/server.key  # This file should be kept secret
+dh ../server/dh.pem
 # 默认虚拟局域网网段，不要和实际的局域网冲突即可
 server 10.8.0.0 255.255.255.0 # 路由模式，桥接模式用server-bridge
 ifconfig-pool-persist ipp.txt
@@ -23,7 +23,7 @@ client-to-client
 # 如果客户端都使用相同的证书和密钥连接VPN，一定要打开这个选项，否则每个证书只允许一个人连接VPN
 duplicate-cn
 keepalive 10 120
-tls-auth server/ta.key 0 # This file is secret
+tls-auth ../server/ta.key 0 # This file is secret
 comp-lzo
 persist-key
 persist-tun
