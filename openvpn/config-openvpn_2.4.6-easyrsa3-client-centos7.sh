@@ -14,8 +14,10 @@ cd /data/service/openvpn/easy-rsa-client
 printf "\n################## Creating the certificates for client ##################\n"
 ./easyrsa init-pki 
 ./easyrsa gen-req client nopass 
-/data/service/openvpn/easy-rsa/easyrsa import-req /data/service/openvpn/easy-rsa-client/pki/reqs/client.req client
-/data/service/openvpn/easy-rsa/easyrsa sign client client
+
+cd /data/service/openvpn/easy-rsa
+./easyrsa import-req /data/service/openvpn/easy-rsa-client/pki/reqs/client.req client
+./easyrsa sign client client
 
 printf "\n################## Created the certificates for client ##################\n"
 printf "\n################## 如下证书将被Client使用 ##################\n"
