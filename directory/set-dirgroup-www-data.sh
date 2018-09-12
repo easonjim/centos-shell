@@ -9,7 +9,13 @@ cd `dirname $0`
 source ../common/util.sh
 util::check_root
 
+DIR_PATH=$1
+if [[ ! -n $1 ]]; then
+  export DIR_PATH="/data"
+  exit 1
+fi
+
 # 设置用户组
-chown -R www-data:www-data /data
+chown -R www-data:www-data ${DIR_PATH}
 # 增删改权限
-chmod -R 770 /data
+chmod -R 770 ${DIR_PATH}

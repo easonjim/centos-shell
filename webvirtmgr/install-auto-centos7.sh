@@ -33,23 +33,16 @@ sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config   #修改配
 setenforce 0
 
 # 设置目录并安装nginx
-git clone http://github.com/easonjim/centos-shell.git
-cd centos-shell/directory
-bash init-directory.sh
-cd ../../
-cd centos-shell/nginx
-bash install-nginx_1.14.0.sh
-cd ../../
+echo "请确定已经设置好目录(/data/service)：mkdir -p /data/service"
 
 # 安装kvm（这一步不要求按照这个，只需要安装成功即可）
-cd centos-shell/kvm
-bash install-kvm_centos_7.sh
+echo "请确定已经安装好KVM"
 
 # 安装WebVirtMgr依赖
 yum install epel-release
 wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
 # 这一步的epel源是关键，如果安装不成功，那么下面的依赖也会安装不成功
-yum -y install git python-pip libvirt-python libxml2-python python-websockify supervisor nginx
+yum -y install git python-pip libvirt-python libxml2-python python-websockify supervisor
 yum -y install gcc python-devel
 pip install numpy
 
@@ -144,3 +137,6 @@ EOF
 # 最后重启服务
 service libvirtd restart
 service supervisord start
+
+echo "请勿设置为其它用户组权限/data/service/webvirtmgr，请一定保证为nginx用户组"
+echo "如果/data/service/webvirtmgr的顶层权限不是nginx用户组，那么请设置nginx隶属于这个用户组，比如顶层权限为www-data用户组时：usermod -a -G www-data nginx"

@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# 设置用户sudo
+# 增加用户到用户组
 
 # 解决相对路径问题
 cd `dirname $0`
@@ -9,12 +9,13 @@ cd `dirname $0`
 source ../common/util.sh
 util::check_root
 
-# 增加sudo权限
-# 检查阐述是否为空
 if [[ ! -n $1 ]]; then
+  echo "请输入用户组"
+  exit 1
+fi
+if [[ ! -n $2 ]]; then
   echo "请输入用户名"
   exit 1
 fi
 
-echo "设置的sudo权限为www-data用户组下的隶属关系"
-usermod -a -G www-data $1
+usermod -a -G $1 $2

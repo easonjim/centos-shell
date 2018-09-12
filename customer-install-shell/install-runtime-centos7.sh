@@ -22,6 +22,3 @@ bash ../nginx/install-nginx_1.14.0.sh
 bash ../rsync/install-rsync_3.1.3.sh
 # docker
 bash ../docker/install-docker_last-centos7.sh
-
-# 设置文件夹权限隶属于www-data
-bash ../directory/set-dirgroup-www-data.sh

@@ -21,10 +21,6 @@ find /data -exec mv {}/.gitignore /tmp 1>/dev/null 2>&1 \;
 # 初始化用户
 if [[ `grep -c "^www-data" /etc/passwd` = 0 || `grep -c "^www-data" /etc/group` = 0 ]]; then
     useradd www-data
-    # 用户组
-    chown -R www-data:www-data /data
-    # 增删改权限
-    chmod -R 770 /data
     # 增加sudo权限
     echo "%www-data    ALL=(ALL)       ALL" >> /etc/sudoers
     # 设置密码
@@ -33,3 +29,8 @@ if [[ `grep -c "^www-data" /etc/passwd` = 0 || `grep -c "^www-data" /etc/group` 
 else
     echo "www-data用户已存在"
 fi
+
+# 设置文件夹用户组权限
+chown -R www-data:www-data /data
+# 增删改权限
+chmod -R 770 /data

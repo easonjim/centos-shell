@@ -24,7 +24,7 @@ if [[ ! -n $3 ]]; then
 fi
 
 # 初始化文件夹
-bash ../directory/init-directory.sh
+bash ../directory/init-dir-business.sh
 
 # 初始化防火墙
 bash ../firewall/init-centos7.sh

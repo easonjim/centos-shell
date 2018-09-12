@@ -10,6 +10,7 @@ source ../common/util.sh
 util::check_root
 
 # 设置sudogroup用户组
+echo "设置普通用户组为usergroup"
 if [[ `grep -c "^userroup" /etc/passwd` = 0 || `grep -c "^usergroup" /etc/group` = 0 ]]; then
     useradd usergroup
 else
