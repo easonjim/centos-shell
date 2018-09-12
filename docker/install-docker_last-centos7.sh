@@ -9,6 +9,23 @@ cd `dirname $0`
 source ../common/util.sh
 util::check_root
 
+# 配置阿里云源
+# 备份
+cp /etc/yum.repos.d/CentOS-Base.repo{,.bak'_'`date +%Y%m%d_%H%M%S`}
+# 下载
+wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+# 生效测试
+yum clean all
+yum makecache
+
+# 配置epel源
+yum install -y epel-release
+# 备份(如有配置其他epel源)
+cp /etc/yum.repos.d/epel.rep{,.bak'_'`date +%Y%m%d_%H%M%S`}
+cp /etc/yum.repos.d/epel-testing.repo{,.bak'_'`date +%Y%m%d_%H%M%S`}
+# 下载新repo到/etc/yum.repos.d/
+wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
+
 # 卸载旧依赖
 yum remove docker \
     docker-client \
