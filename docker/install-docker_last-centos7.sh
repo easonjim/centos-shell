@@ -28,11 +28,12 @@ yum install -y yum-utils \
     lvm2
 yum-config-manager \
     --add-repo \
-    https://download.docker.com/linux/centos/docker-ce.repo
+    http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 yum-config-manager --enable docker-ce-edge
 # yum-config-manager --enable docker-ce-test
 # yum-config-manager --disable docker-ce-edge
-yum install docker-ce
+yum makecache fast
+yum install -y docker-ce
 
 # 创建用户组
 groupadd docker
@@ -41,3 +42,4 @@ usermod -aG docker www-data
 
 # 设置启动项
 systemctl enable docker
+service docker start
