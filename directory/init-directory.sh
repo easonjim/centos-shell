@@ -31,6 +31,12 @@ else
 fi
 
 # 设置文件夹用户组权限
-chown -R www-data:www-data /data
+chown www-data:www-data /data
+chown -R www-data:www-data /data/service
+chown -R www-data:www-data /data/webapp
+chown -R www-data:www-data /data/weblog
 # 增删改权限
-chmod -R 770 /data
+chmod 770 /data
+chmod -R 770 /data/service
+chmod -R 770 /data/webapp
+chmod -R 770 /data/weblog

@@ -9,6 +9,11 @@ cd `dirname $0`
 source ../common/util.sh
 util::check_root
 
+if [ -d "/data/service/openvpn/easy-rsa/pki" ]; then
+  echo "已经生成过pki，将删除后执行！"
+  mv /data/service/openvpn/easy-rsa/pki /data/service/openvpn/easy-rsa/pki'_'`date +%Y%m%d_%H%M%S`
+fi
+
 cd /data/service/openvpn/easy-rsa
 
 printf "\n################## Creating the certificates for server ##################\n"
@@ -28,6 +33,9 @@ printf "/data/service/openvpn/easy-rsa/pki/dh.pem\n"
 printf "/data/service/openvpn/easy-rsa/pki/ta.key\n"
 printf "################## 如上证书将被Server使用 ##################\n"
 
+if [ -d "/data/service/openvpn/server" ]; then
+  mv /data/service/openvpn/server /data/service/openvpn/server'_'`date +%Y%m%d_%H%M%S`
+fi
 mkdir -p /data/service/openvpn/server
 cp /data/service/openvpn/easy-rsa/pki/ca.crt /data/service/openvpn/server/
 cp /data/service/openvpn/easy-rsa/pki/private/server.key /data/service/openvpn/server/

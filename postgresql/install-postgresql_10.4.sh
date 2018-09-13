@@ -182,3 +182,6 @@ chkconfig postgres on
 
 # 启动
 service postgres start
+
+# 设置用户隶属于www-data用户组
+usermod -aG www-data postgres

@@ -21,7 +21,7 @@ yum install -y sysstat vim bison-devel ncurses-devel net-snmp
 yum install -y sysstat dstat iotop flex byacc 
 yum install -y libpcap libpcap-devel nfs-utils zip unzip 
 yum install -y xz lsof bison openssh-clients lftp
-yum install -y htop 
+yum install -y htop telnet
 yum -y groupinstall "Development Tools" "Server Platform Development"
 ## centos7特有
 yum install -y net-tools
@@ -54,7 +54,7 @@ systemctl disable NetworkManager
 yum install -y iptables
 yum update iptables 
 yum install -y iptables-services
-systemctl enable iptables
+systemctl disable iptables
 systemctl start iptables
 
 # 关闭selinux，清空iptables

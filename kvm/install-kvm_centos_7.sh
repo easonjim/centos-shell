@@ -49,7 +49,7 @@ systemctl stop firewalld
 systemctl disable firewalld
 # 安装回iptables，但不要开启，留到后续使用（可选）
 yum install -y iptables-services
-systemctl enable iptables
+systemctl disable iptables
 systemctl stop iptables
 # 3、查看系统是否支持KVM虚拟化
 # egrep '(vmx|svm)' --color=always /proc/cpuinfo               

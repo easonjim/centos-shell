@@ -113,3 +113,6 @@ mysql_secure_installation
 
 # 导入时区
 mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root -p mysql
+
+# 设置用户隶属于www-data用户组
+usermod -aG www-data mysql

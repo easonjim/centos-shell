@@ -14,8 +14,8 @@ yum install -y iptables
 yum update iptables 
 # 安装iptables-services
 yum install -y iptables-services
-# 设置开机启动
-systemctl enable iptables
+# 设置开机不启动
+systemctl disable iptables
 # 启动
 systemctl start iptables
 # 清空所有默认规则
