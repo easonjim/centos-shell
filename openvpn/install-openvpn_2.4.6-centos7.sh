@@ -103,6 +103,9 @@ chmod +x /usr/lib/systemd/system/openvpn@.service
 # 设置开机启动（根据实际情况替换server参数）
 # systemctl enable openvpn@server.service
 
+# 创建pid文件夹
+mkdir -p /var/run/openvpn
+
 # 更新环境变量
 . /etc/profile
 

@@ -2,6 +2,9 @@
 #
 # 免密登录
 
+# 解决相对路径问题
+cd `dirname $0`
+
 # 引入外部文件
 source ../common/util.sh
 

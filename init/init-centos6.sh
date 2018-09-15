@@ -21,7 +21,7 @@ yum install -y sysstat vim bison-devel ncurses-devel net-snmp
 yum install -y sysstat dstat iotop flex byacc 
 yum install -y libpcap libpcap-devel nfs-utils zip unzip 
 yum install -y xz lsof bison openssh-clients lftp
-yum install -y htop telnet
+yum install -y htop telnet tcpdump
 yum -y groupinstall "Development Tools" "Server Platform Development"
 
 # 配置阿里云源
