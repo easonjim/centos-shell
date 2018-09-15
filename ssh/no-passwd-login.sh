@@ -31,3 +31,5 @@ ssh-keygen
 touch ~/.ssh/config && echo -e "StrictHostKeyChecking=no\nUserKnownHostsFile=/dev/null" >> ~/.ssh/config
 chmod 0600 ~/.ssh/config
 sh-copy-id $1@$2
+# 退出当前用户
+logout
