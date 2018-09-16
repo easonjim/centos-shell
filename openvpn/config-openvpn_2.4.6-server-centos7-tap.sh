@@ -1,10 +1,16 @@
 #!/bin/bash
 #
 # config openvpn 2.4.6 and easy-rsa3 for centos7
+# tap模式
 
 PORT=$1
-if [[ ! -n $1 ]]; then
+SERVER_BRIDGE=$2
+if [[ ! -n ${PORT} ]]; then
   echo "请输入服务端端口"
+  exit 1
+fi
+if [[ ! -n ${SERVER_BRIDGE} ]]; then
+  echo "请输入桥接地址及范围，如：10.8.0.4 255.255.255.0 10.8.0.50 10.8.0.100"
   exit 1
 fi
 
@@ -61,8 +67,8 @@ proto udp
 # On most systems, the VPN will not function
 # unless you partially or fully disable
 # the firewall for the TUN/TAP interface.
-;dev tap
-dev tun
+dev tap0
+;dev tun
 
 # Windows needs the TAP-Win32 adapter name
 # from the Network Connections panel if you
@@ -101,7 +107,7 @@ dh ../server/dh.pem
 # unless Windows clients v2.0.9 and lower have to
 # be supported (then net30, i.e. a /30 per client)
 # Defaults to net30 (not recommended)
-topology subnet
+;topology subnet
 
 # Configure server mode and supply a VPN subnet
 # for OpenVPN to draw client addresses from.
@@ -110,7 +116,7 @@ topology subnet
 # Each client will be able to reach the server
 # on 10.8.0.1. Comment this line out if you are
 # ethernet bridging. See the man page for more info.
-server 10.8.0.0 255.255.255.0
+;server 10.8.0.0 255.255.255.0
 
 # Maintain a record of client <-> virtual IP address
 # associations in this file.  If OpenVPN goes down or
@@ -129,7 +135,7 @@ ifconfig-pool-persist ipp.txt
 # (start=10.8.0.50 end=10.8.0.100) to allocate
 # to connecting clients.  Leave this line commented
 # out unless you are ethernet bridging.
-;server-bridge 10.8.0.4 255.255.255.0 10.8.0.50 10.8.0.100
+server-bridge ${SERVER_BRIDGE}
 
 # Configure server mode for ethernet bridging
 # using a DHCP-proxy, where clients talk

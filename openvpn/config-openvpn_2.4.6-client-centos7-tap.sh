@@ -1,6 +1,7 @@
 #!/bin/bash
 #
 # config openvpn 2.4.6 and easy-rsa3 for centos7
+# tap模式
 
 IPADDR=$1
 PORT=$2
@@ -41,8 +42,8 @@ client
 # On most systems, the VPN will not function
 # unless you partially or fully disable
 # the firewall for the TUN/TAP interface.
-;dev tap
-dev tun
+dev tap
+;dev tun
 
 # Windows needs the TAP-Win32 adapter name
 # from the Network Connections panel
@@ -142,7 +143,7 @@ cipher AES-256-CBC
 comp-lzo
 
 # Set log file verbosity.
-verb 5
+verb 9
 
 # Silence repeating messages
 ;mute 20

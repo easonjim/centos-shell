@@ -41,7 +41,7 @@ bash ../rsync/rsync-file-sudo.sh www-data /etc/profile.d/tomcat.sh www-data /etc
 # node
 bash ../rsync/rsync-file.sh www-data /data/service/node www-data /data/service/node ${TAGER_IP} ${TAGER_PORT}
 bash ../rsync/rsync-file-sudo.sh www-data /etc/profile.d/node.sh www-data /etc/profile.d/ ${TAGER_IP} ${TAGER_PORT}
-# nodejs特出处理pm2
+# nodejs特殊处理pm2
 sshpass -p ${TAGER_ROOT_PASSWD} ssh -o StrictHostKeychecking=no root@${TAGER_IP} -p ${TAGER_PORT} "
 npm install pm2 -g
 "
