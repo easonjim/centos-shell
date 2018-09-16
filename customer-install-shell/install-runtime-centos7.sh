@@ -18,7 +18,5 @@ bash ../tomcat/install-tomcat_8.5.31.sh
 bash ../node/install-node_8.11.2.sh
 # ng
 bash ../nginx/install-nginx_1.14.0.sh
-# rsync
-bash ../rsync/install-rsync_3.1.3.sh
 # docker
 bash ../docker/install-docker_last-centos7.sh

@@ -690,8 +690,8 @@ EOF
 # 设置权限
 chmod +x $TOMCAT_INIT_D
 
+# tomcat默认不开启
 # 增加到开机启动
-chkconfig tomcat8 on
-
+# chkconfig tomcat8 on
 # 启动
-service tomcat8 start
+# service tomcat8 start

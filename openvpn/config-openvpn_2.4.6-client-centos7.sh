@@ -18,7 +18,7 @@ if [[ ! -n $3 ]]; then
   exit 1
 fi
 
-cat <<EOF > /data/service/openvpn/etc/client.conf
+cat <<EOF > /data/service/openvpn/etc/${CLIENT_NAME}.conf
 ##############################################
 # Sample client-side OpenVPN 2.0 config file #
 # for connecting to multi-client server.     #

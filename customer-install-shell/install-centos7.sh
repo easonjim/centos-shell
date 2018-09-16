@@ -31,6 +31,8 @@ bash ../firewall/init-centos7.sh
 
 # 初始化环境
 bash ../init/init-centos7.sh
+# rsync
+bash ../rsync/install-rsync_3.1.3.sh
 
 # 优化内核
 bash ../kernel/init-sysctl.sh
@@ -38,8 +40,8 @@ bash ../kernel/init-sysctl.sh
 # 初始化ssh
 bash ../ssh/clean-welcome.sh
 bash ../ssh/edit-port.sh ${PORT}
-# 不允许root远程登录
-bash ../ssh/set-root-nologin.sh
+# 不允许root远程登录（不自动设置）
+# bash ../ssh/set-root-nologin.sh
 
 # 初始化hostname
 bash ../hostname/init-hostname.sh ${HOSTNAME}
