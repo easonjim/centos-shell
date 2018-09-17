@@ -92,8 +92,8 @@ After=network.target
 [Service]
 PrivateTmp=true
 Type=forking
-PIDFile=/var/run/openvpn/%i.pid
-ExecStart=/data/service/openvpn/sbin/openvpn --daemon --writepid /var/run/openvpn/%i.pid --cd /data/service/openvpn/etc --config %i.conf
+PIDFile=/var/run/openvpn_%i.pid
+ExecStart=/data/service/openvpn/sbin/openvpn --daemon --writepid /var/run/openvpn_%i.pid --cd /data/service/openvpn/etc --config %i.conf
 
 [Install]
 WantedBy=multi-user.target

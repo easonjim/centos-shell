@@ -143,7 +143,7 @@ cipher AES-256-CBC
 comp-lzo
 
 # Set log file verbosity.
-verb 9
+verb 5
 
 # Silence repeating messages
 ;mute 20

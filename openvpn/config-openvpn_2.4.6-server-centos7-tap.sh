@@ -5,6 +5,11 @@
 
 PORT=$1
 SERVER_BRIDGE=$2
+ETH=$3
+ETH_IP=$4
+ETH_NETMASK=$5
+ETH_BROADCAST=$6
+ETH_GATEWAY=$7
 if [[ ! -n ${PORT} ]]; then
   echo "请输入服务端端口"
   exit 1
@@ -13,6 +18,27 @@ if [[ ! -n ${SERVER_BRIDGE} ]]; then
   echo "请输入桥接地址及范围，如：10.8.0.4 255.255.255.0 10.8.0.50 10.8.0.100"
   exit 1
 fi
+if [[ ! -n ${ETH} ]]; then
+  echo "请输入网卡名称"
+  exit 1
+fi
+if [[ ! -n ${ETH_IP} ]]; then
+  echo "请输入网卡IP"
+  exit 1
+fi
+if [[ ! -n ${ETH_NETMASK} ]]; then
+  echo "请输入网卡子网掩码"
+  exit 1
+fi
+if [[ ! -n ${ETH_BROADCAST} ]]; then
+  echo "请输入网卡广播地址"
+  exit 1
+fi
+if [[ ! -n ${ETH_GATEWAY} ]]; then
+  echo "请输入网卡网关"
+  exit 1
+fi
+
 
 cat <<EOF > /data/service/openvpn/etc/server.conf
 #################################################
@@ -321,7 +347,7 @@ log-append  openvpn.log
 # 4 is reasonable for general usage
 # 5 and 6 can help to debug connection problems
 # 9 is extremely verbose
-verb 9
+verb 5
 
 # Silence repeating messages.  At most 20
 # sequential messages of the same message
@@ -331,4 +357,93 @@ verb 9
 # Notify the client that when the server restarts so it
 # can automatically reconnect.
 explicit-exit-notify 1
+
+# Allow running external scripts
+script-security 3
+up bridge-start.sh
+down bridge-stop.sh
 EOF
+
+# 增加网桥设置
+cat <<EOF > /data/service/openvpn/etc/bridge-start.sh
+#!/bin/bash
+
+#################################
+# Set up Ethernet bridge on Linux
+# Requires: bridge-utils
+#################################
+
+# Define Bridge Interface
+br="br0"
+
+# Define list of TAP interfaces to be bridged,
+# for example tap="tap0 tap1 tap2".
+tap="tap0"
+
+# Define physical ethernet interface to be bridged
+# with TAP interface(s) above.
+eth=${ETH}
+eth_ip=${ETH_IP}
+eth_netmask=${ETH_NETMASK}
+eth_broadcast=${ETH_BROADCAST}
+eth_gateway=${ETH_GATEWAY}
+
+for t in $tap; do
+    /data/service/openvpn/sbin/openvpn --mktun --dev $t
+done
+
+/usr/sbin/brctl addbr $br
+/usr/sbin/brctl addif $br $eth
+
+for t in $tap; do
+    /usr/sbin/brctl addif $br $t
+done
+
+for t in $tap; do
+    /usr/sbin/ifconfig $t 0.0.0.0 promisc up
+done
+
+/usr/sbin/ifconfig $eth 0.0.0.0 promisc up
+
+/usr/sbin/ifconfig $br $eth_ip netmask $eth_netmask broadcast $eth_broadcast
+
+/usr/sbin/route add default gw $eth_gateway
+EOF
+chmod +x /data/service/openvpn/etc/bridge-start.sh
+
+cat <<EOF > /data/service/openvpn/etc/bridge-stop.sh
+
+
+#!/bin/bash
+
+####################################
+# Tear Down Ethernet bridge on Linux
+####################################
+
+# Define Bridge Interface
+br="br0"
+
+# Define list of TAP interfaces to be bridged together
+# for example tap="tap0 tap1 tap2".
+tap="tap0"
+
+# Define physical ethernet interface to be bridged
+# with TAP interface(s) above.
+eth=${ETH}
+eth_ip=${ETH_IP}
+eth_netmask=${ETH_NETMASK}
+eth_broadcast=${ETH_BROADCAST}
+eth_gateway=${ETH_GATEWAY}
+
+for t in $tap; do
+    /data/service/openvpn/sbin/openvpn --rmtun --dev $t
+done
+
+/usr/sbin/ifconfig $br down
+/usr/sbin/brctl delbr $br
+
+/usr/sbin/ifconfig $eth $eth_ip netmask $eth_netmask broadcast $eth_broadcast
+
+/usr/sbin/route add default gw $eth_gateway
+EOF
+chmod +x /data/service/openvpn/etc/bridge-stop.sh

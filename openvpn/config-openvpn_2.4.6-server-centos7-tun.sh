@@ -316,7 +316,7 @@ log-append  openvpn.log
 # 4 is reasonable for general usage
 # 5 and 6 can help to debug connection problems
 # 9 is extremely verbose
-verb 9
+verb 5
 
 # Silence repeating messages.  At most 20
 # sequential messages of the same message
