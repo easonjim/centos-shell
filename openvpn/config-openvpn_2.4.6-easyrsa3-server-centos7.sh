@@ -23,7 +23,8 @@ printf "\n################## Creating the certificates for server ##############
 ./easyrsa sign server server 
 ./easyrsa gen-dh
 
-openvpn --genkey --secret pki/ta.key
+cd ../sbin
+./openvpn --genkey --secret /data/service/openvpn/easy-rsa/pki/ta.key
 printf "\n################## Created the certificates for server ##################\n"
 printf "\n################## 如下证书将被Server使用 ##################\n"
 printf "/data/service/openvpn/easy-rsa/pki/ca.crt\n"

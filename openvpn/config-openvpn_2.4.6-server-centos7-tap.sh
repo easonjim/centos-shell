@@ -382,38 +382,36 @@ tap="tap0"
 
 # Define physical ethernet interface to be bridged
 # with TAP interface(s) above.
-eth=${ETH}
-eth_ip=${ETH_IP}
-eth_netmask=${ETH_NETMASK}
-eth_broadcast=${ETH_BROADCAST}
-eth_gateway=${ETH_GATEWAY}
+eth="${ETH}"
+eth_ip="${ETH_IP}"
+eth_netmask="${ETH_NETMASK}"
+eth_broadcast="${ETH_BROADCAST}"
+eth_gateway="${ETH_GATEWAY}"
 
-for t in $tap; do
-    /data/service/openvpn/sbin/openvpn --mktun --dev $t
+for t in \$tap; do
+    /data/service/openvpn/sbin/openvpn --mktun --dev \$t
 done
 
-/usr/sbin/brctl addbr $br
-/usr/sbin/brctl addif $br $eth
+/usr/sbin/brctl addbr \$br
+/usr/sbin/brctl addif \$br \$eth
 
-for t in $tap; do
-    /usr/sbin/brctl addif $br $t
+for t in \$tap; do
+    /usr/sbin/brctl addif \$br \$t
 done
 
-for t in $tap; do
-    /usr/sbin/ifconfig $t 0.0.0.0 promisc up
+for t in \$tap; do
+    /usr/sbin/ifconfig \$t 0.0.0.0 promisc up
 done
 
-/usr/sbin/ifconfig $eth 0.0.0.0 promisc up
+/usr/sbin/ifconfig \$eth 0.0.0.0 promisc up
 
-/usr/sbin/ifconfig $br $eth_ip netmask $eth_netmask broadcast $eth_broadcast
+/usr/sbin/ifconfig \$br \$eth_ip netmask \$eth_netmask broadcast \$eth_broadcast
 
-/usr/sbin/route add default gw $eth_gateway
+/usr/sbin/route add default gw \$eth_gateway
 EOF
 chmod +x /data/service/openvpn/etc/bridge-start.sh
 
 cat <<EOF > /data/service/openvpn/etc/bridge-stop.sh
-
-
 #!/bin/bash
 
 ####################################
@@ -429,21 +427,21 @@ tap="tap0"
 
 # Define physical ethernet interface to be bridged
 # with TAP interface(s) above.
-eth=${ETH}
-eth_ip=${ETH_IP}
-eth_netmask=${ETH_NETMASK}
-eth_broadcast=${ETH_BROADCAST}
-eth_gateway=${ETH_GATEWAY}
+eth="${ETH}"
+eth_ip="${ETH_IP}"
+eth_netmask="${ETH_NETMASK}"
+eth_broadcast="${ETH_BROADCAST}"
+eth_gateway="${ETH_GATEWAY}"
 
-for t in $tap; do
-    /data/service/openvpn/sbin/openvpn --rmtun --dev $t
+for t in \$tap; do
+    /data/service/openvpn/sbin/openvpn --rmtun --dev \$t
 done
 
-/usr/sbin/ifconfig $br down
-/usr/sbin/brctl delbr $br
+/usr/sbin/ifconfig \$br down
+/usr/sbin/brctl delbr \$br
 
-/usr/sbin/ifconfig $eth $eth_ip netmask $eth_netmask broadcast $eth_broadcast
+/usr/sbin/ifconfig \$eth \$eth_ip netmask \$eth_netmask broadcast \$eth_broadcast
 
-/usr/sbin/route add default gw $eth_gateway
+/usr/sbin/route add default gw \$eth_gateway
 EOF
 chmod +x /data/service/openvpn/etc/bridge-stop.sh
