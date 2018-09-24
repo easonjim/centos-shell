@@ -53,6 +53,7 @@ fi
 # 设置文件夹用户组权限
 chown www-data:www-data /data
 # java
+chown -R www-data:www-data /data/service
 chown -R www-data:www-data /data/service/common_conf
 chown -R www-data:www-data /data/service/java
 chown -R www-data:www-data /data/service/maven
@@ -78,6 +79,7 @@ chown -R www-data:www-data /data/weblog/tomcat/www.domain.com
 # 增删改权限
 chmod 770 /data
 # java
+chmod -R 770 /data/service
 chmod -R 770 /data/service/common_conf
 chmod -R 770 /data/service/java
 chmod -R 770 /data/service/maven
