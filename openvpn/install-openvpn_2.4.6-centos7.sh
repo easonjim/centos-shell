@@ -120,9 +120,10 @@ cp -rf easyrsa3/* /data/service/openvpn/easy-rsa
 mkdir -p /data/service/openvpn/easy-rsa-client
 cp -rf easyrsa3/* /data/service/openvpn/easy-rsa-client
 
+# 安装后初始化
+mkdir -p /data/service/openvpn/etc/ccd
 # 目录规划
 # 目的是为了和yum安装的保持一致
 ln -s /data/service/openvpn /etc/openvpn
-
 # 安装网桥工具依赖
 yum install -y bridge-utils

@@ -26,5 +26,5 @@ chmod +x /data/service/openvpn/etc/client_ping_server_tap_aliyun.sh
 
 ## 写入定时任务
 if [[ `grep -c "client_ping_server_tap_aliyun" /etc/crontab` = 0 ]]; then
-    echo '*/5 * * * * /data/service/openvpn/etc/client_ping_server_tap_aliyun.sh &>/dev/null' >> /etc/crontab
+    echo '*/1 * * * * root bash /data/service/openvpn/etc/client_ping_server_tap_aliyun.sh &>/dev/null' >> /etc/crontab
 fi

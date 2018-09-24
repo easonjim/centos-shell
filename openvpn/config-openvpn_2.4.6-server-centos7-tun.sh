@@ -177,7 +177,7 @@ ifconfig-pool-persist ipp.txt
 # EXAMPLE: Suppose you want to give
 # Thelonious a fixed VPN IP address of 10.9.0.1.
 # First uncomment out these lines:
-;client-config-dir ccd
+client-config-dir ccd
 ;route 10.9.0.0 255.255.255.252
 # Then add this line to ccd/Thelonious:
 #   ifconfig-push 10.9.0.1 10.9.0.2

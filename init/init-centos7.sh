@@ -94,7 +94,7 @@ ntpdate cn.pool.ntp.org &> /dev/null
 ntpdate cn.pool.ntp.org && hwclock -w && hwclock --systohc
 ## 写入定时任务定时更新时间
 if [[ `grep -c "cn.pool.ntp.org" /etc/crontab` = 0 ]]; then
-    echo '*/5 * * * * /usr/sbin/ntpdate cn.pool.ntp.org &>/dev/null' >> /etc/crontab
+    echo '*/5 * * * * root /usr/sbin/ntpdate cn.pool.ntp.org &>/dev/null' >> /etc/crontab
 fi
 
 # 调整文件描述符大小
@@ -107,11 +107,11 @@ EOF
 sed -i 's/1024/1024000/g' /etc/security/limits.d/20-nproc.conf
 sed -i 's/4096/1024000/g' /etc/security/limits.d/20-nproc.conf
 
-# 调整字符集，使其支持中文
-yum -y groupinstall chinese-support &> /dev/null
-sed -i s/"^LANG=.*$"/"LANG=zh_CN.UTF-8"/ /etc/locale.conf 
-echo 'SUPPORTED="zh_CN:zh:en_US.UTF-8:en_US:en:zh_CN.GB18030"' >> /etc/locale.conf 
-source /etc/locale.conf 
+# 调整字符集，使其支持中文（没必要中文，方便问题排查）
+# yum -y groupinstall "fonts" &> /dev/null
+# sed -i s/"^LANG=.*$"/"LANG=zh_CN.UTF-8"/ /etc/locale.conf 
+# echo 'SUPPORTED="zh_CN:zh:en_US.UTF-8:en_US:en:zh_CN.GB18030"' >> /etc/locale.conf 
+# source /etc/locale.conf 
 
 # 去除系统及内核版本登录前的屏幕显示
 ## 备份
@@ -187,7 +187,7 @@ sed -i 's/alias rm/alias rmd/g' ~/.bashrc
 . /etc/profile
 ## 配置定时删除
 if [[ `grep -c "trash" /etc/crontab` = 0 ]]; then
-    echo '0 0 0 0 1/1 rm -rf /data/.trash/tmp/* &>/dev/null' >> /etc/crontab
+    echo '0 0 1 * * root rm -rf /data/.trash/tmp/* &>/dev/null' >> /etc/crontab
 fi
 
 # 替换关机/重启命令(shutdown/poweroff/reboot)
