@@ -50,6 +50,7 @@ yum-config-manager --enable docker-ce-edge
 # yum-config-manager --enable docker-ce-test
 # yum-config-manager --disable docker-ce-edge
 yum makecache fast
+yum --enablerepo=base clean metadata
 yum install -y docker-ce
 
 # 创建用户组

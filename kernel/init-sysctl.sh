@@ -26,9 +26,9 @@ cat > /etc/sysctl.conf << EOF
 net.ipv4.ip_forward = 0        
 # 开启路由功能
 net.ipv4.conf.all.rp_filter = 1
-# 加强入站过滤和出站过滤
+# 加强入站过滤和出站过滤（如果配置了多张网卡且每张网卡在不同的网段时此项应该设置为0）
 net.ipv4.conf.default.rp_filter = 1
-# 开启反向路径过滤
+# 开启反向路径过滤（如果配置了多张网卡且每张网卡在不同的网段时此项应该设置为0）
 net.ipv4.conf.default.accept_source_route = 0
 # 处理无源路由的包
 kernel.sysrq = 0

@@ -21,10 +21,21 @@ yum install -y sysstat vim bison-devel ncurses-devel net-snmp
 yum install -y sysstat dstat iotop flex byacc 
 yum install -y libpcap libpcap-devel nfs-utils zip unzip 
 yum install -y xz lsof bison openssh-clients lftp
-yum install -y htop telnet tcpdump sshpass
+yum install -y htop telnet tcpdump sshpass vconfig
+yum install -y bridge-utils nmap
 yum -y groupinstall "Development Tools" "Server Platform Development"
 ## centos7特有
 yum install -y net-tools
+## tunctl特有
+cat << EOF > /etc/yum.repos.d/nux-misc.repo
+[nux-misc]
+name=Nux Misc
+baseurl=http://li.nux.ro/download/nux/misc/el7/x86_64/
+enabled=0
+gpgcheck=1
+gpgkey=http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro
+EOF
+yum -y --enablerepo=nux-misc install tunctl
 
 # 配置阿里云源
 # 备份
