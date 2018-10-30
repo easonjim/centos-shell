@@ -23,7 +23,7 @@ chmod 755 /etc/sysconfig/modules/br_netfilter.modules
 lsmod |grep br_netfilter
 
 cat > /etc/sysctl.conf << EOF
-net.ipv4.ip_forward = 0        
+net.ipv4.ip_forward = 1        
 # 开启路由功能
 net.ipv4.conf.all.rp_filter = 1
 # 加强入站过滤和出站过滤（如果配置了多张网卡且每张网卡在不同的网段时此项应该设置为0）
