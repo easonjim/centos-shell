@@ -36,7 +36,7 @@ chown -R www-data:www-data /data/service
 chown -R www-data:www-data /data/webapp
 chown -R www-data:www-data /data/weblog
 # 增删改权限
-chmod 770 /data
-chmod -R 770 /data/service
-chmod -R 770 /data/webapp
-chmod -R 770 /data/weblog
+chmod 775 /data
+chmod -R 775 /data/service
+chmod -R 775 /data/webapp
+chmod -R 775 /data/weblog

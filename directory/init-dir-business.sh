@@ -44,7 +44,7 @@ if [[ `grep -c "^www-data" /etc/passwd` = 0 || `grep -c "^www-data" /etc/group` 
     # 增加sudo权限
     echo "%www-data    ALL=(ALL)       ALL" >> /etc/sudoers
     # 设置密码
-    echo "设置www-data用户密码"
+    echo "www-data用户新建完成，请设置www-data用户密码"
     # passwd www-data
 else
     echo "www-data用户已存在"
@@ -77,28 +77,28 @@ chown -R www-data:www-data /data/weblog/nginx/www.domain.com
 chown -R www-data:www-data /data/weblog/tomcat
 chown -R www-data:www-data /data/weblog/tomcat/www.domain.com
 # 增删改权限
-chmod 770 /data
+chmod 775 /data
 # java
-chmod -R 770 /data/service
-chmod -R 770 /data/service/common_conf
-chmod -R 770 /data/service/java
-chmod -R 770 /data/service/maven
-chmod -R 770 /data/service/nginx
-chmod -R 770 /data/service/nginx_base
-chmod -R 770 /data/service/nginx_vhost
-chmod -R 770 /data/service/node
-chmod -R 770 /data/service/rsync
-chmod -R 770 /data/service/tomcat
-chmod -R 770 /data/service/tomcat_base
+chmod -R 775 /data/service
+chmod -R 775 /data/service/common_conf
+chmod -R 775 /data/service/java
+chmod -R 775 /data/service/maven
+chmod -R 775 /data/service/nginx
+chmod -R 775 /data/service/nginx_base
+chmod -R 775 /data/service/nginx_vhost
+chmod -R 775 /data/service/node
+chmod -R 775 /data/service/rsync
+chmod -R 775 /data/service/tomcat
+chmod -R 775 /data/service/tomcat_base
 # 应用
-chmod -R 770 /data/webapp
-chmod -R 770 /data/webapp/www.domain.com
+chmod -R 775 /data/webapp
+chmod -R 775 /data/webapp/www.domain.com
 # 日志
-chmod -R 770 /data/weblog
-chmod -R 770 /data/weblog/business
-chmod -R 770 /data/weblog/business/www.domain.com
-chmod -R 770 /data/weblog/nginx
-chmod -R 770 /data/weblog/nginx/default
-chmod -R 770 /data/weblog/nginx/www.domain.com
-chmod -R 770 /data/weblog/tomcat
-chmod -R 770 /data/weblog/tomcat/www.domain.com
+chmod -R 775 /data/weblog
+chmod -R 775 /data/weblog/business
+chmod -R 775 /data/weblog/business/www.domain.com
+chmod -R 775 /data/weblog/nginx
+chmod -R 775 /data/weblog/nginx/default
+chmod -R 775 /data/weblog/nginx/www.domain.com
+chmod -R 775 /data/weblog/tomcat
+chmod -R 775 /data/weblog/tomcat/www.domain.com

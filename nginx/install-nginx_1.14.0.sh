@@ -70,6 +70,7 @@ pid        var/run/nginx.pid;
 
 
 events {
+    use epoll;
     worker_connections  1024;
 }
 

@@ -207,3 +207,6 @@ alias reboot='echo "Prohibition of use!"'
 alias shutdown='echo "Prohibition of use!"'
 alias poweroff='echo "Prohibition of use!"'
 EOF
+
+# CentOS 7开机启动文件配置
+chmod +x /etc/rc.d/rc.local
