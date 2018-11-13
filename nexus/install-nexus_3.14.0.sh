@@ -11,7 +11,7 @@ util::check_root
 
 # 下载
 # https://www.sonatype.com/download-oss-sonatype
-wget https://sonatype-download.global.ssl.fastly.net/repository/repositoryManager/3/nexus-3.14.0-04-unix.tar.gz
+wget https://sonatype-download.global.ssl.fastly.net/repository/repositoryManager/3/nexus-3.14.0-04-unix.tar.gz -O nexus-3.14.0-04-unix.tar.gz 
 
 # 解压
 tar -zxvf nexus-3.14.0-04-unix.tar.gz
