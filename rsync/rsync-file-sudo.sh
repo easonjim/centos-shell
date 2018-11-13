@@ -7,17 +7,12 @@
 cd `dirname $0`
 
 # 定义变量
-LOCAL_ACCOUNT=$1
-LOCAL_FILE_PATH=$2
-TAGER_ACCOUNT=$3
-TAGER_FILE_PATH=$4
-TAGER_IP=$5
-TAGER_PORT=$6
+LOCAL_FILE_PATH=$1
+TAGER_ACCOUNT=$2
+TAGER_FILE_PATH=$3
+TAGER_IP=$4
+TAGER_PORT=$5
 # 判断变量
-if [[ ! -n ${LOCAL_ACCOUNT} ]]; then
-  echo "请输入本机账号"
-  exit 1
-fi
 if [[ ! -n ${LOCAL_FILE_PATH} ]]; then
   echo "请输入本地路径"
   exit 1
@@ -40,4 +35,4 @@ if [[ ! -n ${TAGER_PORT} ]]; then
 fi
 
 # 执行
-sudo -u ${LOCAL_ACCOUNT} rsync -avh --rsync-path="sudo rsync" -e 'ssh -p ${TAGER_PORT}' ${LOCAL_FILE_PATH} ${TAGER_ACCOUNT}@${TAGER_IP}:${TAGER_FILE_PATH}
+rsync -avh --rsync-path="sudo rsync" -e 'ssh -p ${TAGER_PORT}' ${LOCAL_FILE_PATH} ${TAGER_ACCOUNT}@${TAGER_IP}:${TAGER_FILE_PATH}
