@@ -39,11 +39,20 @@ ssh -o StrictHostKeychecking=no root@${TAGER_IP} -p ${TAGER_PORT} "
 # 设置开机启动
 chkconfig nginx on
 
+# 添加用户
+useradd nginx
+
 # 设置用户隶属于www-data用户组
 usermod -aG www-data nginx
 
 # 启动
 service nginx start 
+"
+# tomcat
+ssh -o StrictHostKeychecking=no root@${TAGER_IP} -p ${TAGER_PORT} "
+# 设置开机启动
+chkconfig --add tomcat8
+
 "
 # docker
 ssh -o StrictHostKeychecking=no root@${TAGER_IP} -p ${TAGER_PORT} " bash /root/centos-shell/docker/install-docker_last-centos7.sh "
