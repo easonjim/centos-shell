@@ -25,6 +25,7 @@ fi
 
 # 下载初始化环境并执行
 ssh -o StrictHostKeychecking=no root@${TAGER_IP} -p ${TAGER_PORT} " 
+mv /root/centos-shell{,_bak}
 curl https://raw.githubusercontent.com/easonjim/centos-shell/master/init.sh | bash
 bash /root/centos-shell/customer-install-shell/install-centos7.sh
 "
