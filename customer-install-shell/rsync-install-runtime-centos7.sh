@@ -29,13 +29,10 @@ bash ../rsync/rsync-file.sh /data/service/ root /data/service/ ${TAGER_IP} ${TAG
 bash ../rsync/rsync-file.sh /etc/profile.d/ root /etc/profile.d/ ${TAGER_IP} ${TAGER_PORT}
 bash ../rsync/rsync-file.sh /etc/init.d/ root /etc/init.d/ ${TAGER_IP} ${TAGER_PORT}
 # 特殊处理
-# nodejs特殊处理pm2
-ssh -o StrictHostKeychecking=no root@${TAGER_IP} -p ${TAGER_PORT} "
-source /etc/profile
-npm install pm2 -g
-"
 # ng
 ssh -o StrictHostKeychecking=no root@${TAGER_IP} -p ${TAGER_PORT} "
+source /etc/profile
+
 # 设置开机启动
 chkconfig nginx on
 
@@ -52,7 +49,8 @@ service nginx start
 ssh -o StrictHostKeychecking=no root@${TAGER_IP} -p ${TAGER_PORT} "
 # 设置开机启动
 chkconfig --add tomcat8
-
 "
 # docker
-ssh -o StrictHostKeychecking=no root@${TAGER_IP} -p ${TAGER_PORT} " bash /root/centos-shell/docker/install-docker_last-centos7.sh "
+ssh -o StrictHostKeychecking=no root@${TAGER_IP} -p ${TAGER_PORT} " 
+bash /root/centos-shell/docker/install-docker_last-centos7.sh 
+"
