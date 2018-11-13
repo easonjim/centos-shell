@@ -26,8 +26,8 @@ fi
 
 # 同步环境
 bash ../rsync/rsync-file.sh /data/service/ root /data/service/ ${TAGER_IP} ${TAGER_PORT}
-bash ../rsync/rsync-file-sudo.sh /etc/profile.d/ root /etc/profile.d/ ${TAGER_IP} ${TAGER_PORT}
-bash ../rsync/rsync-file-sudo.sh /etc/init.d/ root /etc/init.d/ ${TAGER_IP} ${TAGER_PORT}
+bash ../rsync/rsync-file.sh /etc/profile.d/ root /etc/profile.d/ ${TAGER_IP} ${TAGER_PORT}
+bash ../rsync/rsync-file.sh /etc/init.d/ root /etc/init.d/ ${TAGER_IP} ${TAGER_PORT}
 # 特殊处理
 # nodejs特殊处理pm2
 ssh -o StrictHostKeychecking=no root@${TAGER_IP} -p ${TAGER_PORT} "
