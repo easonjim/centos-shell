@@ -35,4 +35,4 @@ if [[ ! -n ${TAGER_PORT} ]]; then
 fi
 
 # 执行
-rsync -avh --rsync-path="sudo rsync" -e 'ssh -p ${TAGER_PORT}' ${LOCAL_FILE_PATH} ${TAGER_ACCOUNT}@${TAGER_IP}:${TAGER_FILE_PATH}
+rsync -avh --rsync-path="sudo rsync" -e 'ssh -p '${TAGER_PORT} ${LOCAL_FILE_PATH} ${TAGER_ACCOUNT}@${TAGER_IP}:${TAGER_FILE_PATH}

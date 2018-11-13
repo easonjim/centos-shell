@@ -36,4 +36,4 @@ if [[ ! -n ${LOCAL_FILE_PATH} ]]; then
 fi
 
 # 执行
-rsync -avh ${SERVER_ACCOUNT}@${SERVER_IP}:${SERVER_FILE_PATH} ${LOCAL_FILE_PATH} 
+rsync -avh -e 'ssh -p '${SERVER_PORT} ${SERVER_ACCOUNT}@${SERVER_IP}:${SERVER_FILE_PATH} ${LOCAL_FILE_PATH} 
