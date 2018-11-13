@@ -19,7 +19,7 @@ curl -L https://alibaba.github.io/arthas/install.sh | sh
 # 创建环境变量
 cat <<EOF >/etc/profile.d/arthas.sh
 export ARTHAS_HOME=/data/service/arthas
-export PATH=\$ARTHAS_HOME/bin:\$PATH
+export PATH=\$ARTHAS_HOME:\$PATH
 EOF
 
 # 设置权限
