@@ -10,9 +10,9 @@ cd `dirname $0`
 LOCAL_ACCOUNT=$1
 LOCAL_FILE_PATH=$2
 TAGER_ACCOUNT=$3
-TAGER_FILE_PATH=$5
-TAGER_IP=$6
-TAGER_PORT=$7
+TAGER_FILE_PATH=$4
+TAGER_IP=$5
+TAGER_PORT=$6
 # 判断变量
 if [[ ! -n ${LOCAL_ACCOUNT} ]]; then
   echo "请输入本机账号"
