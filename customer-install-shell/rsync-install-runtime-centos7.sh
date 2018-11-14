@@ -14,7 +14,6 @@ util::check_root
 # 定义变量
 TAGER_IP=$1
 TAGER_PORT=$2
-TAGER_ROOT_PASSWD=$3
 if [[ ! -n ${TAGER_IP} ]]; then
   echo "请输入目标IP"
   exit 1
