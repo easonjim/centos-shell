@@ -8,4 +8,4 @@ if [[ "$(whoami)" != "root" ]]; then
     exit 1
 fi
 
-git pull
+cd /root/centos-shell && git pull
