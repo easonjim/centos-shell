@@ -10,8 +10,8 @@ if [[ "$(whoami)" != "root" ]]; then
 fi
 
 # 定义变量
-GROUPS=$1
+GROUP=$1
 
-[ -z $1 ] && GROUPS=all
+[ -z $1 ] && GROUP=all
 
-ansible ${GROUPS} -m shell -a "cd /root/centos-shell && git pull"
+ansible ${GROUP} -m shell -a "cd /root/centos-shell && git pull"
