@@ -19,6 +19,13 @@ bash /root/centos-shell/customer-install-shell/install-runtime-centos7.sh
 bash /root/centos-shell/customer-install-shell/rsync-install-centos7.sh 192.168.5.10(IP) 22(PORT)
 # 创建免密登录
 bash /root/centos-shell/ssh/no-passwd-login.sh root 192.168.5.10 22
+# 或已经有了秘钥要之后
+bash /root/centos-shell/ssh/no-passwd-login-for-copy.sh root 192.168.5.10 22
+# 同步环境
+bash /root/centos-shell/customer-install-shell/rsync-install-runtime-centos7.sh 192.168.5.10 22
+
+# 远程同步安装（子）
+bash /root/centos-shell/customer-install-shell/rsync-runtime-centos7-from-server.sh 192.168.5.1 22
 ```
 ## Shell开发规范
 采用Google的Shell代码风格：  
