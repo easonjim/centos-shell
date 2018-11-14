@@ -11,9 +11,14 @@ chmod +x xxx.sh
 ```
 ## 快速使用脚本（使用之前必须新建好文件夹）
 ```shell
-bash /root/centos-shell/directory/init-directory.sh
+# 实时下载安装（子）
 bash /root/centos-shell/customer-install-shell/install-centos7.sh
 bash /root/centos-shell/customer-install-shell/install-runtime-centos7.sh
+
+# 远程同步安装（父到子）
+bash /root/centos-shell/customer-install-shell/rsync-install-centos7.sh 192.168.5.10(IP) 22(PORT)
+# 创建免密登录
+bash /root/centos-shell/ssh/no-passwd-login.sh root 192.168.5.10 22
 ```
 ## Shell开发规范
 采用Google的Shell代码风格：  
