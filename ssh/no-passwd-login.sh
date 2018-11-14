@@ -30,4 +30,4 @@ su - $1 -c "ssh-keygen"
 # 配置权限
 su - $1 -c "touch ~/.ssh/config && echo -e \"StrictHostKeyChecking=no\nUserKnownHostsFile=/dev/null\" >> ~/.ssh/config"
 su - $1 -c "chmod 0600 ~/.ssh/config"
-sudo -u $1 sh-copy-id $1@$2
+sudo -u $1 ssh-copy-id $1@$2

@@ -22,4 +22,4 @@ if [[ ! -n $2 ]]; then
   exit 1
 fi
 
-sudo -u $1 sh-copy-id $1@$2
+sudo -u $1 ssh-copy-id $1@$2
