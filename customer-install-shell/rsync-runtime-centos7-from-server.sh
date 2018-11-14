@@ -32,6 +32,8 @@ bash ../rsync/rsync-file-from-server.sh root /etc/profile.d/ ${TAGER_IP} ${TAGER
 source /etc/profile
 # 设置开机启动
 chkconfig nginx on
+# 添加用户
+useradd nginx
 # 设置用户隶属于www-data用户组
 usermod -aG www-data nginx
 # 启动
