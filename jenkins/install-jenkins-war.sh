@@ -22,9 +22,11 @@ usermod -aG www-data jenkins
 
 # 创建文件夹，移动目录
 mkdir -p /data/service/jenkins
+mkdir -p /data/service/jenkins/.jenkins
 mv jenkins.war /data/service/jenkins/
 # 修改目录权限
 chown -R www-data:www-data /data/service/jenkins
+chown -R jenkins:jenkins /data/service/jenkins/.jenkins
 
 # 安装start-stop-daemon
 wget http://ftp.de.debian.org/debian/pool/main/d/dpkg/dpkg_1.16.18.tar.xz -O dpkg_1.16.18.tar.xz
@@ -43,7 +45,7 @@ DESC="Jenkins CI Server"
 NAME=jenkins
 PIDFILE=/var/run/$NAME.pid
 RUN_AS=jenkins
-COMMAND="/usr/bin/java -- -jar /data/service/jenkins/jenkins.war"
+COMMAND="/usr/bin/java -- -DJENKINS_HOME=/data/service/jenkins/.jenkins -jar /data/service/jenkins/jenkins.war"
 START_STOP_DAEMON=/usr/local/sbin/start-stop-daemon
  
 d_start() {

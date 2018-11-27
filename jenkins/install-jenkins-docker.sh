@@ -15,6 +15,9 @@ docker pull jenkinsci/blueocean
 # 指定版
 # docker pull jenkinsci/blueocean:1.3.6
 
+# 创建目录
+mkdir -p /data/service/jenkins/jenkins_home
+
 # 运行
 docker run \
   -u root \
@@ -22,7 +25,7 @@ docker run \
   -d \
   -p 8080:8080 \
   -p 50000:50000 \
-  -v jenkins-data:/var/jenkins_home \
+  -v /data/service/jenkins/jenkins_home:/var/jenkins_home \
   -v /var/run/docker.sock:/var/run/docker.sock \
   jenkinsci/blueocean
 
