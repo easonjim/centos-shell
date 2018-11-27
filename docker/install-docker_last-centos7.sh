@@ -27,7 +27,7 @@ cp /etc/yum.repos.d/epel-testing.repo{,.bak'_'`date +%Y%m%d_%H%M%S`}
 wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
 
 # 卸载旧依赖
-yum remove docker \
+yum remove -y docker docker-ce docker-ce-cli \
     docker-client \
     docker-client-latest \
     docker-common \
@@ -63,5 +63,5 @@ systemctl enable docker
 service docker start
 
 # 安装docker-compose
-sudo curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose

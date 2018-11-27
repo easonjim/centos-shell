@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# node.js 8.11.2
+# ansible 
 
 # 解决相对路径问题
 cd `dirname $0`

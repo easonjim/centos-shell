@@ -32,3 +32,10 @@ EOF
 
 # 更新环境变量
 . /etc/profile
+
+# 使其与yum安装的保持一致
+mkdir -p /usr/lib/jvm/java-1.8.0/bin/
+ln -s $JDK_PATH/bin/java /usr/lib/jvm/java-1.8.0/bin/java
+mkdir -p /usr/lib/jvm/jre-1.8.0/bin/
+ln -s $JDK_PATH/jre/bin/java /usr/lib/jvm/jre-1.8.0/bin/java
+ln -s $JDK_PATH/bin/java /usr/bin/java

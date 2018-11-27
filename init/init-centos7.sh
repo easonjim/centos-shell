@@ -22,7 +22,8 @@ yum install -y sysstat dstat iotop flex byacc
 yum install -y libpcap libpcap-devel nfs-utils zip unzip 
 yum install -y xz lsof bison openssh-clients lftp
 yum install -y htop telnet tcpdump sshpass vconfig
-yum install -y bridge-utils nmap python-pip
+yum install -y bridge-utils nmap python-pip bind-utils nethogs
+yum install -y ncdu
 yum -y groupinstall "Development Tools" "Server Platform Development"
 ## centos7特有
 yum install -y net-tools

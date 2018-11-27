@@ -22,7 +22,8 @@ yum install -y sysstat dstat iotop flex byacc
 yum install -y libpcap libpcap-devel nfs-utils zip unzip 
 yum install -y xz lsof bison openssh-clients lftp
 yum install -y htop telnet tcpdump sshpass vconfig
-yum install -y tunctl bridge-utils nmap python-pip
+yum install -y tunctl bridge-utils nmap python-pip bind-utils
+yum install -y nethogs ncdu
 yum -y groupinstall "Development Tools" "Server Platform Development"
 
 # 配置阿里云源
