@@ -27,7 +27,7 @@ cp /etc/yum.repos.d/epel-testing.repo{,.bak'_'`date +%Y%m%d_%H%M%S`}
 wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
 
 # 卸载旧依赖
-yum remove -y docker docker-ce docker-ce-cli \
+yum remove -y docker \
     docker-client \
     docker-client-latest \
     docker-common \
@@ -36,7 +36,9 @@ yum remove -y docker docker-ce docker-ce-cli \
     docker-logrotate \
     docker-selinux \
     docker-engine-selinux \
-    docker-engine
+    docker-engine \
+    docker-ce \
+    docker-ce-cli
 
 # 安装Docker CE
 # 设置存储库
