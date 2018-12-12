@@ -211,3 +211,7 @@ EOF
 
 # CentOS 7开机启动文件配置
 chmod +x /etc/rc.d/rc.local
+
+# 关闭rpcbind服务
+systemctl disable rpcbind
+systemctl stop rpcbind
