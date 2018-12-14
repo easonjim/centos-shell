@@ -214,4 +214,6 @@ chmod +x /etc/rc.d/rc.local
 
 # 关闭rpcbind服务
 systemctl disable rpcbind
+systemctl disable.socket rpcbind.socket
+systemctl stop rpcbind.socket
 systemctl stop rpcbind
