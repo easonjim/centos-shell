@@ -40,6 +40,9 @@ yum remove -y docker \
     docker-ce \
     docker-ce-cli
 
+# 清除残留
+mv /var/lib/docker{,.bak'_'`date +%Y%m%d_%H%M%S`}
+
 # 安装Docker CE
 # 设置存储库
 yum install -y yum-utils \
