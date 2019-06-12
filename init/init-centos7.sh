@@ -144,30 +144,30 @@ echo "" >/etc/issue
 # chattr +i /etc/fstab
 # mv /usr/bin/chattr /usr/bin/rttahc
 
-# 系统审计和故障排查
-mkdir -p /usr/etc/.history
-chmod -R 777 /usr/etc/.history
-cat >> /etc/profile << "EOF"
-# 内容审计
-HISTDIR=/usr/etc/.history
-USER_IP=`who -u am i 2>/dev/null| awk '{print $NF}'|sed -e 's/[()]//g'`
-if [ -z ${USER_IP} ]; then
-    USER_IP=`hostname`
-fi
-if [ ! -d ${HISTDIR} ]; then
-    mkdir -p ${HISTDIR}
-    chmod 777 ${HISTDIR}
-fi
-if [ ! -d ${HISTDIR}/${LOGNAME} ]; then
-    mkdir -p ${HISTDIR}/${LOGNAME}
-    chmod 300 ${HISTDIR}/${LOGNAME}
-fi
-export HISTSIZE=2000
-DT=`date +%Y%m%d_%H%M%S`
-export HISTFILE="${HISTDIR}/${LOGNAME}/${USER_IP}.history.$DT"
-export HISTTIMEFORMAT="[%Y.%m.%d %H:%M:%S] "
-chmod 600 ${HISTDIR}/${LOGNAME}/*.history* 2>/dev/null
-EOF
+# 系统审计和故障排查（内容审计用堡垒机）
+# mkdir -p /usr/etc/.history
+# chmod -R 777 /usr/etc/.history
+# cat >> /etc/profile << "EOF"
+# # 内容审计
+# HISTDIR=/usr/etc/.history
+# USER_IP=`who -u am i 2>/dev/null| awk '{print $NF}'|sed -e 's/[()]//g'`
+# if [ -z ${USER_IP} ]; then
+#     USER_IP=`hostname`
+# fi
+# if [ ! -d ${HISTDIR} ]; then
+#     mkdir -p ${HISTDIR}
+#     chmod 777 ${HISTDIR}
+# fi
+# if [ ! -d ${HISTDIR}/${LOGNAME} ]; then
+#     mkdir -p ${HISTDIR}/${LOGNAME}
+#     chmod 300 ${HISTDIR}/${LOGNAME}
+# fi
+# export HISTSIZE=2000
+# DT=`date +%Y%m%d_%H%M%S`
+# export HISTFILE="${HISTDIR}/${LOGNAME}/${USER_IP}.history.$DT"
+# export HISTTIMEFORMAT="[%Y.%m.%d %H:%M:%S] "
+# chmod 600 ${HISTDIR}/${LOGNAME}/*.history* 2>/dev/null
+# EOF
 ## 更新环境变量
 . /etc/profile
 
@@ -183,9 +183,11 @@ chmod -R 777 /data/.trash
 cat <<"EOF" > /data/.trash/remove.sh
 TRASH_DIR="/data/.trash/tmp"
 for i in $*; do  
-    STAMP=`date +%s`  
-    fileName=`basename $i`  
-    mv $i $TRASH_DIR/$fileName.$STAMP  
+    if [ $i != "-rf" ] && [ $i != "-r" ] && [ $i != "-f" ] && [ $i != "-fr" ]; then
+        STAMP=`date +%s`  
+        mkdir -p $TRASH_DIR/${STAMP}
+        mv $i $TRASH_DIR/$STAMP/
+    fi  
 done  
 EOF
 ## 赋予权限
@@ -217,3 +219,8 @@ systemctl disable rpcbind
 systemctl disable.socket rpcbind.socket
 systemctl stop rpcbind.socket
 systemctl stop rpcbind
+
+# 提示符显示完整路径
+# cat <<EOF >> /etc/profile
+# export PS1="[\033[01;33m\u\033[0;36m@\033[01;34m\h \033[01;31m\w\033[0m]\033[0m# "
+# EOF

@@ -34,11 +34,13 @@ bash ../init/init-centos7.sh
 # rsync
 bash ../rsync/install-rsync_3.1.3.sh
 
-# 优化内核
-bash ../kernel/init-sysctl.sh
+# 优化内核（不建议使用通用功能优化内容，根据实际需要配置各台机器）
+# bash ../kernel/init-sysctl.sh
 
 # 初始化ssh
 bash ../ssh/clean-welcome.sh
+# 不建议自动设置远程端口号（安全性的保证，后续可以使用证书替代，密码+端口都不靠谱）
+# 此处增加多一个50022端口，后续在防火墙中禁用22端口
 bash ../ssh/edit-port.sh ${PORT}
 # 不允许root远程登录（不自动设置）
 # bash ../ssh/set-root-nologin.sh
