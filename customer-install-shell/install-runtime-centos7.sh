@@ -13,6 +13,7 @@ util::check_root
 # java
 bash ../java/install-java_1.8.0_172.sh
 bash ../java/install-maven_3.5.3.sh
+# 现在应用基本很少用到tomcat，基本基于spring boot
 # bash ../tomcat/install-tomcat_8.5.31.sh
 bash ../java/install-arthas.sh
 # node

@@ -23,7 +23,7 @@ yum install -y libpcap libpcap-devel nfs-utils zip unzip
 yum install -y xz lsof bison openssh-clients lftp
 yum install -y htop telnet tcpdump sshpass vconfig
 yum install -y bridge-utils nmap python-pip bind-utils nethogs
-yum install -y ncdu tree
+yum install -y ncdu tree screen logrotate
 yum -y groupinstall "Development Tools" "Server Platform Development"
 ## centos7特有
 yum install -y net-tools
@@ -47,11 +47,11 @@ wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-
 yum clean all
 yum makecache
 
+# 备份(如有配置其他epel源)
+cp /etc/yum.repos.d/epel.repo{,.bak'_'`date +%Y%m%d_%H%M%S`}
+cp /etc/yum.repos.d/epel-testing.repo{,.bak'_'`date +%Y%m%d_%H%M%S`}
 # 配置epel源
 yum install -y epel-release
-# 备份(如有配置其他epel源)
-cp /etc/yum.repos.d/epel.rep{,.bak'_'`date +%Y%m%d_%H%M%S`}
-cp /etc/yum.repos.d/epel-testing.repo{,.bak'_'`date +%Y%m%d_%H%M%S`}
 # 下载新repo到/etc/yum.repos.d/
 wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
             

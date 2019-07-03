@@ -23,7 +23,7 @@ yum install -y libpcap libpcap-devel nfs-utils zip unzip
 yum install -y xz lsof bison openssh-clients lftp
 yum install -y htop telnet tcpdump sshpass vconfig
 yum install -y tunctl bridge-utils nmap python-pip bind-utils
-yum install -y nethogs ncdu tree
+yum install -y nethogs ncdu tree screen logrotate
 yum -y groupinstall "Development Tools" "Server Platform Development"
 
 # 配置阿里云源
@@ -35,12 +35,12 @@ wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-
 yum clean all
 yum makecache
 
+## 备份(如有配置其他epel源)
+cp /etc/yum.repos.d/epel.repo{,.bak'_'`date +%Y%m%d_%H%M%S`}
+cp /etc/yum.repos.d/epel-testing.repo{,.bak'_'`date +%Y%m%d_%H%M%S`}
 # 配置epel源
 yum install -y epel-release
 yum install -y wget
-## 备份(如有配置其他epel源)
-cp /etc/yum.repos.d/epel.rep{,.bak'_'`date +%Y%m%d_%H%M%S`}
-cp /etc/yum.repos.d/epel-testing.repo{,.bak'_'`date +%Y%m%d_%H%M%S`}
 ## 下载新repo 到/etc/yum.repos.d/
 wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-6.repo
 
