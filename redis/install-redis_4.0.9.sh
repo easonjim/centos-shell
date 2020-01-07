@@ -40,11 +40,11 @@ EOF
 
 # 设置开机启动服务
 cat > $REDIS_INIT_D <<EOF 
+#!/bin/sh
+#
 # chkconfig: 2345 10 90  
 # redis服务必须在运行级2，3，4，5下被启动或关闭，启动的优先级是90，关闭的优先级是10。
 # description: Start and Stop redis
-#!/bin/sh
-#
 # Simple Redis init.d script conceived to work on Linux systems
 # as it does use of the /proc filesystem.
 
