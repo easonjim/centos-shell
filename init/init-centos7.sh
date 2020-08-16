@@ -27,6 +27,9 @@ yum install -y ncdu tree screen logrotate
 yum -y groupinstall "Development Tools" "Server Platform Development"
 ## centos7特有
 yum install -y net-tools
+yum install pciutils
+## oracle
+yum install -y unzip compat-libcap1 compat-libstdc++-33 gcc-c++ ksh libaio-devel libstdc++-devel elfutils-libelf-devel fontconfig-devel libXrender-devel rlwrap
 ## tunctl特有
 cat << EOF > /etc/yum.repos.d/nux-misc.repo
 [nux-misc]
