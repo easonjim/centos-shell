@@ -46,6 +46,7 @@ yum -y --enablerepo=nux-misc install tunctl
 cp /etc/yum.repos.d/CentOS-Base.repo{,.bak'_'`date +%Y%m%d_%H%M%S`}
 # 下载
 wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+sed -i -e '/mirrors.cloud.aliyuncs.com/d' -e '/mirrors.aliyuncs.com/d' /etc/yum.repos.d/CentOS-Base.repo
 # 生效测试
 yum clean all
 yum makecache
